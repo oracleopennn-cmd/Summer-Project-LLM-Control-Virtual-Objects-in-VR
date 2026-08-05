@@ -59,7 +59,7 @@ public class LLMSemanticController : MonoBehaviour
 
     [Header("Gemini API Configuration")]
     public string geminiApiKey = "YOUR_GEMINI_API_KEY_HERE";
-    public string modelName = "gemini-1.5-flash";
+    public string modelName = "gemini-3.1-flash-lite";
 
     [Header("Vision & Scene Interaction")]
     public Camera mainVRCamera;

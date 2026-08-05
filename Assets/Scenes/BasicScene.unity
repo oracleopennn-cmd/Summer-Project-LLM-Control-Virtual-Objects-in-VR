@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMSemanticController
   statusUIParent: {fileID: 141234164}
-  geminiApiKey: AQ.Ab8RN6Kmfbyy8IJhgWFP6xDLphRcgrbWz9w0zQ8AKRJ9yEZrXw
+  geminiApiKey: 
   modelName: gemini-3.1-flash-lite
   mainVRCamera: {fileID: 1128746139}
   leftRayInteractor: {fileID: 1713436247}
