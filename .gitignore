@@ -1,2 +1,16 @@
 Assets/_Course Library/video/BlackOrWhite.mp4
-Assets/_Course Library/video/BlackOrWhite.mp4
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+# 忽略视频文件
+*.mp4
+*.mov
+*.avi
+
+# 忽略 Course Library 或整个大型资源目录
+Assets/_Course Library/Video/

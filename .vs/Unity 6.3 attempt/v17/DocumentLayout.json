@@ -1,0 +1,150 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\llmsemanticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\llmsemanticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|d:\\compsci summer project\\vr proj attempt\\unity 6.3 attempt\\assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\llmtester.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\llmtester.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\voiceinputcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\voiceinputcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\selectableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\selectableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\bindingvisualizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bindingvisualizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\screencaptureutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\screencaptureutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\wavutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\wavutility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SceneReloader.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\SceneReloader.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SceneReloader.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\SceneReloader.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SceneReloader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-03T12:35:30.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ScreenCaptureUtility.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\ScreenCaptureUtility.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ScreenCaptureUtility.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\ScreenCaptureUtility.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ScreenCaptureUtility.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T14:31:29.02Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SelectableObject.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\SelectableObject.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SelectableObject.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\SelectableObject.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SelectableObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-30T14:30:12.695Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VoiceInputController.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\VoiceInputController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\VoiceInputController.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\VoiceInputController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\VoiceInputController.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAmwHMAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T15:32:57.909Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "WavUtility.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\WavUtility.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\WavUtility.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\WavUtility.cs",
+              "RelativeToolTip": "Assets\\Scripts\\WavUtility.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T15:29:57.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BindingVisualizer.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\BindingVisualizer.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BindingVisualizer.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\BindingVisualizer.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BindingVisualizer.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAC0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T14:06:38.842Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LLMTester.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\LLMTester.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\LLMTester.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\LLMTester.cs",
+              "RelativeToolTip": "Assets\\Scripts\\LLMTester.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T13:04:47.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LLMSemanticController.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\LLMSemanticController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\LLMSemanticController.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\LLMSemanticController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\LLMSemanticController.cs",
+              "ViewState": "AgIAAGICAAAAAAAAAAAYwIUCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-25T12:49:39.568Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\GAToUnityCallbacks.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroEnd.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroHeaderBegin.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\MacroSourceBegin.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAApplication.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAConfiguration.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGADebug.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAEvents.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAInput.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGASoftKeyboard.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGASoftKeyboardCallbacks.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGATypes.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UGAVersion.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGACallbacks.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAConfigurationCallbacks.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAKeyEventCallbacks.h
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\UnityToGAMotionEventCallbacks.h

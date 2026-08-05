@@ -1,0 +1,2 @@
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+D:\COMPSCI Summer Project\VR proj attempt\Unity 6.3 attempt\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
