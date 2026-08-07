@@ -1379,6 +1379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMSemanticController
   statusUIParent: {fileID: 141234164}
+  uiAutoHideDelay: 5
   geminiApiKey: 
   modelName: gemini-3.1-flash-lite
   mainVRCamera: {fileID: 1128746139}
@@ -2192,8 +2193,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.6
-  m_fontSizeBase: 19.6
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

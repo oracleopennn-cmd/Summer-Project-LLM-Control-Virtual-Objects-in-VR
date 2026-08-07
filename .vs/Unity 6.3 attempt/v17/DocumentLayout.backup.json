@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\llmsemanticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|d:\\compsci summer project\\vr proj attempt\\unity 6.3 attempt\\assets\\scripts\\llmsemanticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\llmsemanticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|d:\\compsci summer project\\vr proj attempt\\unity 6.3 attempt\\assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8CA60E6F-C789-A4E1-FA33-104EEE929997}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -54,8 +54,7 @@
               "RelativeToolTip": "Assets\\Scripts\\SceneReloader.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-03T12:35:30.649Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-03T12:35:30.649Z"
             },
             {
               "$type": "Document",
@@ -137,7 +136,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\LLMSemanticController.cs",
               "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Unity 6.3 attempt\\Assets\\Scripts\\LLMSemanticController.cs",
               "RelativeToolTip": "Assets\\Scripts\\LLMSemanticController.cs",
-              "ViewState": "AgIAAGICAAAAAAAAAAAYwIUCAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAmwD0AAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-25T12:49:39.568Z",
               "EditorCaption": ""
