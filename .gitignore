@@ -11,6 +11,7 @@ Assets/_Course Library/video/BlackOrWhite.mp4
 *.mp4
 *.mov
 *.avi
-
+# 忽略APK安装包
+*.apk
 # 忽略 Course Library 或整个大型资源目录
 Assets/_Course Library/Video/
