@@ -19,7 +19,7 @@ public class TutorialStep_1_2 : MonoBehaviour
     private bool isHandlingIncorrectBinding = false;
     private float task1CompletedTime = 0f; // 记录 Task 1 完成的时间戳
 
-    private const string TASK_1_INSTRUCTION = "Stage 1-2 (Task 1/2):\nHold Trigger and say:\n\"Move this to that\"\n\n(Then use raycast to point and click Source and Target objects)";
+    private const string TASK_1_INSTRUCTION = "Stage 1-2 (Task 1/2):\nHold Trigger and say:\n\"I want to use this to move that\"\n\n(Then use raycast to point and click Source and Target objects)";
 
     private void OnEnable()
     {
@@ -103,7 +103,7 @@ public class TutorialStep_1_2 : MonoBehaviour
         Debug.LogWarning("[Stage 1-2] Incorrect binding method or action detected!");
 
         // 1. 弹出错误提示
-        UpdateDirectiveText("❌ Incorrect Method or Action!\n\nIn Stage 1-2, please use demonstratives ('this' / 'that') with move action via Point-and-Select.\n\nAuto-clearing...");
+        UpdateDirectiveText("❌ Incorrect Method or Action!\nPlease follow the instructions\n\nAuto-clearing...");
 
         // 2. 等待 1 秒
         yield return new WaitForSeconds(1.0f);
