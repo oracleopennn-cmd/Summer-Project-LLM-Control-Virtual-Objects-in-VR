@@ -26,9 +26,8 @@ public class TutorialStep_1_3 : MonoBehaviour
 
     [HideInInspector]
     [SerializeField]
-    private string stage2SceneName; // 用于在运行时保存 Scene 名字
+    private string stage2SceneName;
 
-    // 三种控制方式的完成状态
     private bool hasRotated = false;
     private bool hasScaled = false;
     private bool hasMoved = false;
@@ -38,7 +37,6 @@ public class TutorialStep_1_3 : MonoBehaviour
     private void OnValidate()
     {
 #if UNITY_EDITOR
-        // 当你在 Inspector 中拖入或更改 Scene 文件时，自动提取其名称
         if (stage2SceneAsset != null)
         {
             stage2SceneName = stage2SceneAsset.name;
@@ -53,7 +51,6 @@ public class TutorialStep_1_3 : MonoBehaviour
             controller = FindObjectsOfType<LLMSemanticController>(true)[0];
         }
 
-        // 1. 进入 1-3 阶段时，重置控制器状态与本地进度
         if (controller != null)
         {
             controller.ForceResetBinding();
@@ -64,7 +61,6 @@ public class TutorialStep_1_3 : MonoBehaviour
         hasMoved = false;
         isStepCompleted = false;
 
-        // 2. 初始化按钮状态：先隐藏按钮，并绑定点击监听事件
         if (stage2Button != null)
         {
             stage2Button.gameObject.SetActive(false);
@@ -72,10 +68,8 @@ public class TutorialStep_1_3 : MonoBehaviour
             stage2Button.onClick.AddListener(OnStage2ButtonClicked);
         }
 
-        // 3. 更新初始 UI 指引
-        UpdateInstructionUI();
+        UpdateDirectiveText("Stage 1-3: Practice all 3 Control Modes\nTry using Rotate, Scale, and Move connections.");
 
-        // 4. 取消订阅防重，并订阅绑定事件
         LLMSemanticController.OnBindingCreated -= HandleBindingCreated;
         LLMSemanticController.OnBindingCreated += HandleBindingCreated;
     }
@@ -90,74 +84,51 @@ public class TutorialStep_1_3 : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 当每次建立 Binding 时触发，匹配动作类型并更新打勾进度
-    /// </summary>
     public void HandleBindingCreated(string sourceObj, string targetObj)
     {
         if (isStepCompleted || controller == null) return;
 
         string currentAction = controller.LastActiveAction;
 
-        // 记录对应的控制模式
         if (currentAction.Equals("Rotate", System.StringComparison.OrdinalIgnoreCase))
         {
             hasRotated = true;
-            Debug.Log("<color=green>[Stage 1-3]</color> Rotate connection created!");
+            Debug.Log("<color=green>[Stage 1-3 Tracker]</color> Rotate recorded. (Progress: " + GetProgressCount() + "/3)");
         }
         else if (currentAction.Equals("Scale", System.StringComparison.OrdinalIgnoreCase))
         {
             hasScaled = true;
-            Debug.Log("<color=green>[Stage 1-3]</color> Scale connection created!");
+            Debug.Log("<color=green>[Stage 1-3 Tracker]</color> Scale recorded. (Progress: " + GetProgressCount() + "/3)");
         }
         else if (currentAction.Equals("Translate", System.StringComparison.OrdinalIgnoreCase) ||
                  currentAction.Equals("Move", System.StringComparison.OrdinalIgnoreCase))
         {
             hasMoved = true;
-            Debug.Log("<color=green>[Stage 1-3]</color> Move connection created!");
+            Debug.Log("<color=green>[Stage 1-3 Tracker]</color> Move recorded. (Progress: " + GetProgressCount() + "/3)");
         }
 
-        // 刷新 UI 打勾进度
-        UpdateInstructionUI();
-
-        // 校验是否集齐全部 3 种控制模式
         if (hasRotated && hasScaled && hasMoved)
         {
             CompleteStage();
         }
     }
 
-    /// <summary>
-    /// 实时渲染 3 种模式的打勾进度 UI
-    /// </summary>
-    private void UpdateInstructionUI()
+    private int GetProgressCount()
     {
-        string text = "Stage 1-3: Try all 3 Control Modes\n" +
-                      "Create bindings using Rotate, Scale, and Move:\n\n" +
-                      $"{(hasRotated ? "✅" : "⬜")} Rotate (e.g., \"Rotate the cube with the can\")\n" +
-                      $"{(hasScaled ? "✅" : "⬜")} Scale  (e.g., \"Scale the cube with the can\")\n" +
-                      $"{(hasMoved ? "✅" : "⬜")} Move   (e.g., \"Move the cube with the can\")";
-
-        UpdateDirectiveText(text);
-    }
-
-    private void UpdateDirectiveText(string message)
-    {
-        if (directiveText != null)
-        {
-            directiveText.text = message;
-        }
+        int count = 0;
+        if (hasRotated) count++;
+        if (hasScaled) count++;
+        if (hasMoved) count++;
+        return count;
     }
 
     private void CompleteStage()
     {
         isStepCompleted = true;
-        Debug.Log("<color=green>[Stage 1-3]</color> All 3 connection types established! Activating Stage 2 Button.");
+        Debug.Log("<color=green>[Stage 1-3]</color> All 3 modes tested! Stage complete.");
 
-        // 1. 提示用户点击按钮
-        UpdateDirectiveText("🎉 Tutorial 1 Complete!\n\nPlease click the button below to load Stage 2.");
+        UpdateDirectiveText("🎉 Stage 1 Complete!\nClick the button below to proceed to Stage 2.");
 
-        // 2. 激活 Stage 2 按钮
         if (stage2Button != null)
         {
             stage2Button.gameObject.SetActive(true);
@@ -168,9 +139,14 @@ public class TutorialStep_1_3 : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 按钮点击事件：加载 Stage 2 Scene
-    /// </summary>
+    private void UpdateDirectiveText(string message)
+    {
+        if (directiveText != null)
+        {
+            directiveText.text = message;
+        }
+    }
+
     private void OnStage2ButtonClicked()
     {
         Debug.Log($"<color=yellow>[Stage 1-3]</color> Loading Scene: {stage2SceneName}");

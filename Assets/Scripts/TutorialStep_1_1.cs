@@ -97,7 +97,7 @@ public class TutorialStep_1_1 : MonoBehaviour
 
         Debug.LogWarning("[Stage 1-1] Incorrect binding detected! Showing error & resetting...");
 
-        UpdateDirectiveText("❌ Incorrect Action or Method!\n\nIn Stage 1-1, please explicitly name the objects and use move:\n\"Move the cube with the can\"\n\nAuto-clearing...");
+        UpdateDirectiveText("❌ No Spoilers!\n You are gonna learn it soonly later\n\nAuto-clearing...");
 
         yield return new WaitForSeconds(1.0f);
 
