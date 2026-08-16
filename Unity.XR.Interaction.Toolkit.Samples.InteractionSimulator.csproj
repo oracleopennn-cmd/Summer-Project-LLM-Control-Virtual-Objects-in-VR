@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C2DCAEA0-A193-FF05-7A72-CD57F41E0195}</ProjectGuid>
+    <ProjectGuid>{106ECB08-8C05-59B8-505B-B667E5D110C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.XR.Interaction.Toolkit.Samples.InteractionSimulator</AssemblyName>

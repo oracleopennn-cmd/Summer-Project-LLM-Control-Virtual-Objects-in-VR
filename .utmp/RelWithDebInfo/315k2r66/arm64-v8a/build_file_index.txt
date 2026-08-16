@@ -1,0 +1,2 @@
+D:\COMPSCI Summer Project\VR proj attempt\Summer-Project-LLM-Control-Virtual-Objects-in-VR\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+D:\COMPSCI Summer Project\VR proj attempt\Summer-Project-LLM-Control-Virtual-Objects-in-VR\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

@@ -19,7 +19,7 @@ public class BindingData
 {
     public string source;
     public string target;
-    public string action;   // 支持: "Rotate", "Scale", "Translate", "AskUser", "RejectAmbiguous", "PointAndSelect_Rotate", "PointAndSelect_Scale", "PointAndSelect_Translate", "Clear", "None"
+    public string action;   // Supports: "Rotate", "Scale", "Translate", "AskUser", "RejectAmbiguous", "PointAndSelect_Rotate", "PointAndSelect_Scale", "PointAndSelect_Translate", "Clear", "None"
 }
 
 [Serializable]
@@ -53,13 +53,30 @@ public class GeminiResponse
 
 public class LLMSemanticController : MonoBehaviour
 {
+    // ==========================================
+    // Events for Tutorial & Stage Management
+    // ==========================================
+    public static System.Action<string, string> OnBindingCreated;
+    public static System.Action OnBindingCleared;
+
+    // ==========================================
+    // Binding Method & Action Constants & Properties
+    // ==========================================
+    public const string BIND_METHOD_NAME = "Name";
+    public const string BIND_METHOD_POINT = "PointAndSelect";
+    public const string BIND_METHOD_NONE = "None";
+
+    [Header("State & Tutorial Tracking")]
+    public string LastBindingMethod { get; private set; } = BIND_METHOD_NONE;
+    public string LastActiveAction { get; private set; } = "None"; // 新增：供后续识别控制方式 (Rotate, Scale, Translate)
+
     [Header("UI Feedback Settings")]
     public GameObject statusUIParent;
     private TMP_Text statusTextUI;
 
     [Header("UI Auto-Hide Settings")]
-    [Tooltip("UI 提示界面默认自动隐藏的时长（秒）")]
-    public float uiAutoHideDelay = 5f; // 默认 5 秒
+    [Tooltip("Default delay (in seconds) before auto-hiding status UI messages.")]
+    public float uiAutoHideDelay = 5f;
     private Coroutine autoHideCoroutine;
 
     [Header("Gemini API Configuration")]
@@ -78,11 +95,11 @@ public class LLMSemanticController : MonoBehaviour
 
     // Runtime state variables
     public bool isBound = false;
-    public string activeAction = "None"; // 支持: "Rotate", "Scale", "Translate"
+    public string activeAction = "None"; // Supports: "Rotate", "Scale", "Translate"
     public GameObject currentSource;
     public GameObject currentTarget;
 
-    // AskUser 暂存变量
+    // Pending variables for AskUser mode
     private GameObject pendingSource;
     private GameObject pendingTarget;
 
@@ -103,8 +120,8 @@ public class LLMSemanticController : MonoBehaviour
     public float maxScale = 5.0f;
 
     // State Machine
-    private enum ControllerState { Idle, SelectingSource, SelectingTarget, AwaitingControlMode }
-    private ControllerState currentState = ControllerState.Idle;
+    public enum ControllerState { Idle, SelectingSource, SelectingTarget, AwaitingControlMode }
+    public ControllerState currentState = ControllerState.Idle;
 
     private bool mustReleaseTriggerFirst = false;
 
@@ -253,13 +270,28 @@ public class LLMSemanticController : MonoBehaviour
     }
 
     /// <summary>
-    /// 设置 UI 文本。可以通过 autoHide 控制是否要在 5 秒后自动消失。
+    /// 供 Tutorial 脚本在 Stage 开始时调用的重置方法，清空一切状态
     /// </summary>
+    public void ForceResetBinding()
+    {
+        isBound = false;
+        currentSource = null;
+        currentTarget = null;
+        pendingSource = null;
+        pendingTarget = null;
+        activeAction = "None";
+        LastBindingMethod = BIND_METHOD_NONE;
+        LastActiveAction = "None";
+        currentState = ControllerState.Idle;
+
+        if (statusUIParent != null) statusUIParent.SetActive(false);
+        Debug.Log("<color=yellow>[LLM Controller]</color> State force reset by Tutorial Manager.");
+    }
+
     private void SetStatusUI(string message, bool showUI = true, bool autoHide = true)
     {
         Debug.Log($"[Status] {message}");
 
-        // 如果之前有正在倒计时的隐藏协程，先停止它
         if (autoHideCoroutine != null)
         {
             StopCoroutine(autoHideCoroutine);
@@ -276,16 +308,12 @@ public class LLMSemanticController : MonoBehaviour
             statusTextUI.text = message;
         }
 
-        // 仅在 autoHide 为 true 时开启 5 秒倒计时自动隐藏
         if (showUI && autoHide)
         {
             autoHideCoroutine = StartCoroutine(HideUIAfterDelay(uiAutoHideDelay));
         }
     }
 
-    /// <summary>
-    /// 倒计时隐藏 UI 的协程
-    /// </summary>
     private IEnumerator HideUIAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -337,7 +365,6 @@ public class LLMSemanticController : MonoBehaviour
                 if (currentState == ControllerState.SelectingSource)
                 {
                     currentSource = validTarget;
-                    // 【关键点】：Step 2 界面保持常亮，传入 autoHide: false
                     SetStatusUI($"<color=#00FFFF>[Step 2/2]</color> Source set to: <color=yellow>{currentSource.name}</color>\nPoint at the <color=#FF8C00>Target (THAT)</color> object and press trigger.", true, autoHide: false);
 
                     currentState = ControllerState.SelectingTarget;
@@ -390,11 +417,15 @@ public class LLMSemanticController : MonoBehaviour
         return null;
     }
 
-    private void ConfirmBinding(GameObject sourceObj, GameObject targetObj, string actionType)
+    /// <summary>
+    /// 核心确认绑定函数：记录并更新绑定方式与控制动作类型，向外返回绑定方式
+    /// </summary>
+    public string ConfirmBinding(GameObject sourceObj, GameObject targetObj, string actionType)
     {
         currentSource = sourceObj;
         currentTarget = targetObj;
         activeAction = actionType;
+        LastActiveAction = actionType; // 记录当前控制方式 (Rotate, Scale, Translate)
 
         initialSourceRot = currentSource.transform.rotation;
         initialTargetRot = currentTarget.transform.rotation;
@@ -404,41 +435,51 @@ public class LLMSemanticController : MonoBehaviour
         initialTargetPos = currentTarget.transform.position;
 
         isBound = true;
+
+        // 判定绑定方式
+        string bindMethod = (currentState == ControllerState.SelectingTarget ||
+                             currentState == ControllerState.SelectingSource) ? BIND_METHOD_POINT : BIND_METHOD_NAME;
+
+        LastBindingMethod = bindMethod;
         currentState = ControllerState.Idle;
 
-        // 成功绑定提示，5 秒后自动隐藏
-        SetStatusUI($"<color=#00FF00>✅ Bound ({activeAction})!</color>\n<color=yellow>{currentSource.name}</color> ➔ <color=#FF8C00>{currentTarget.name}</color>", true, autoHide: true);
+        SetStatusUI($"<color=#00FF00>✅ Bound ({activeAction}) [{bindMethod}]!</color>\n<color=yellow>{currentSource.name}</color> ➔ <color=#FF8C00>{currentTarget.name}</color>", true, autoHide: true);
+
+        // Notify tutorial subscribers that a binding was successfully created
+        OnBindingCreated?.Invoke(currentSource.name, currentTarget.name);
+
+        return bindMethod;
     }
 
-    public void SendTextWithVisionPrompt(string userInput)
+    /// <summary>
+    /// 支持在追问模式下返回文本判定结果
+    /// </summary>
+    public string SendTextWithVisionPrompt(string userInput)
     {
         if (currentState == ControllerState.AwaitingControlMode)
         {
             string textLower = userInput.ToLower().Trim();
             if (textLower.Contains("rotate") || textLower.Contains("turn"))
             {
-                ConfirmBinding(pendingSource, pendingTarget, "Rotate");
-                return;
+                return ConfirmBinding(pendingSource, pendingTarget, "Rotate");
             }
             else if (textLower.Contains("scale") || textLower.Contains("size") || textLower.Contains("bigger") || textLower.Contains("smaller"))
             {
-                ConfirmBinding(pendingSource, pendingTarget, "Scale");
-                return;
+                return ConfirmBinding(pendingSource, pendingTarget, "Scale");
             }
             else if (textLower.Contains("move") || textLower.Contains("translate") || textLower.Contains("position"))
             {
-                ConfirmBinding(pendingSource, pendingTarget, "Translate");
-                return;
+                return ConfirmBinding(pendingSource, pendingTarget, "Translate");
             }
         }
 
-        if (!ValidateApiKey()) return;
+        if (!ValidateApiKey()) return BIND_METHOD_NONE;
 
         byte[] imageBytes = ScreenCaptureUtility.CaptureCameraView(mainVRCamera);
         if (imageBytes == null)
         {
             SetStatusUI("<color=red>❌ Screenshot capture failed!</color>", true, autoHide: true);
-            return;
+            return BIND_METHOD_NONE;
         }
         string base64Image = Convert.ToBase64String(imageBytes);
 
@@ -446,6 +487,7 @@ public class LLMSemanticController : MonoBehaviour
         string jsonPayload = $"{{\"contents\":[{{\"parts\":[{{\"text\":\"{fullPromptEscaped}\"}},{{\"inlineData\":{{\"mimeType\":\"image/jpeg\",\"data\":\"{base64Image}\"}}}}]}}]}}";
 
         StartCoroutine(SendGeminiApiRequest(jsonPayload, "Text+Vision"));
+        return "PendingAPI";
     }
 
     public void SendAudioWithVisionPrompt(string base64Audio, string audioMime = "audio/wav")
@@ -479,8 +521,6 @@ public class LLMSemanticController : MonoBehaviour
 
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {
-            request.certificateHandler = new BypassCertificate();
-
             byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonPayload);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
@@ -545,26 +585,34 @@ public class LLMSemanticController : MonoBehaviour
         return null;
     }
 
-    private void ApplyDynamicVisionBinding(string jsonContent)
+    /// <summary>
+    /// 解析并执行动态视觉绑定，返回连接方式状态字符串
+    /// </summary>
+    public string ApplyDynamicVisionBinding(string jsonContent)
     {
         try
         {
             BindingData data = JsonUtility.FromJson<BindingData>(jsonContent);
 
-            // 1. 处理 Clear / Disconnect
+            // 1. Process Clear / Disconnect
             if (data.action.Equals("Clear", StringComparison.OrdinalIgnoreCase))
             {
                 isBound = false;
                 currentSource = null;
                 currentTarget = null;
                 activeAction = "None";
+                LastBindingMethod = BIND_METHOD_NONE;
+                LastActiveAction = "None";
                 currentState = ControllerState.Idle;
 
                 SetStatusUI("<color=yellow>🔓 Binding Cleared / Disconnected!</color>", true, autoHide: true);
-                return;
+
+                // Notify tutorial subscribers that binding was cleared
+                OnBindingCleared?.Invoke();
+                return "Clear";
             }
 
-            // 2. 拒绝模糊指令逻辑（RejectAmbiguous）
+            // 2. Reject Ambiguous Commands
             if (data.action.Equals("RejectAmbiguous", StringComparison.OrdinalIgnoreCase) ||
                ((data.source.Equals("this", StringComparison.OrdinalIgnoreCase) || data.target.Equals("that", StringComparison.OrdinalIgnoreCase)) && data.action.Equals("AskUser", StringComparison.OrdinalIgnoreCase)))
             {
@@ -580,10 +628,10 @@ public class LLMSemanticController : MonoBehaviour
                     true,
                     autoHide: true
                 );
-                return;
+                return "RejectAmbiguous";
             }
 
-            // 3. 处理具象操作的手动点选 (PointAndSelect)
+            // 3. Point-and-Select Manual Handling
             if (data.action.StartsWith("PointAndSelect", StringComparison.OrdinalIgnoreCase) ||
                 data.source.Equals("this", StringComparison.OrdinalIgnoreCase) ||
                 data.target.Equals("that", StringComparison.OrdinalIgnoreCase))
@@ -601,15 +649,15 @@ public class LLMSemanticController : MonoBehaviour
                     activeAction = "Rotate";
                 }
 
+                LastActiveAction = activeAction; // 记录点选流程中解析出的动作
                 currentState = ControllerState.SelectingSource;
                 mustReleaseTriggerFirst = true;
 
-                // 【关键点】：Step 1 界面保持常亮，传入 autoHide: false
                 SetStatusUI($"<color=#00FFFF>[Step 1/2] Manual Selection ({activeAction})</color>\nPoint at the <color=yellow>Source (THIS)</color> object and press trigger.", true, autoHide: false);
-                return;
+                return BIND_METHOD_POINT;
             }
 
-            // 4. 场景具体物体匹配
+            // 4. Object Name Matching in Scene
             SelectableObject[] sceneObjects = FindObjectsOfType<SelectableObject>();
             GameObject foundSource = null;
             GameObject foundTarget = null;
@@ -638,10 +686,10 @@ public class LLMSemanticController : MonoBehaviour
             if (foundSource == null || foundTarget == null)
             {
                 SetStatusUI($"<color=orange>⚠️ Object Match Failed!</color>\nSource: '{data.source}', Target: '{data.target}'", true, autoHide: true);
-                return;
+                return "MatchFailed";
             }
 
-            // 5. 处理具名物体的 AskUser 交互 (等待用户语音回应，也保持常亮)
+            // 5. AskUser Ambiguous Voice Handling
             if (data.action.Equals("AskUser", StringComparison.OrdinalIgnoreCase))
             {
                 pendingSource = foundSource;
@@ -649,27 +697,22 @@ public class LLMSemanticController : MonoBehaviour
                 currentState = ControllerState.AwaitingControlMode;
 
                 SetStatusUI($"<color=#FFFF00>❓ How do you want to control?</color>\n<color=yellow>{foundSource.name}</color> ➔ <color=#FF8C00>{foundTarget.name}</color>\nSay <color=#00FF00>'Rotate'</color>, <color=#00FF00>'Scale'</color> or <color=#00FF00>'Move'</color>", true, autoHide: false);
-                return;
+                return "AskUser";
             }
 
-            // 6. 执行确定操作绑定
+            // 6. Confirm Explicit Action Binding
             if (data.action == "Rotate" || data.action == "Scale" || data.action == "Translate")
             {
-                ConfirmBinding(foundSource, foundTarget, data.action);
+                return ConfirmBinding(foundSource, foundTarget, data.action);
             }
         }
         catch (Exception e)
         {
             SetStatusUI("<color=red>❌ JSON Deserialization Failed</color>", true, autoHide: true);
             Debug.LogError($"[Gemini Controller] Deserialization error: {e.Message}");
+            return "Error";
         }
-    }
-}
 
-public class BypassCertificate : CertificateHandler
-{
-    protected override bool ValidateCertificate(byte[] certificateData)
-    {
-        return true;
+        return "None";
     }
 }
