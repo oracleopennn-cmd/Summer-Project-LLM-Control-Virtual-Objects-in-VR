@@ -1514,6 +1514,7 @@ MonoBehaviour:
   objectLabel: Cube
   nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
   uiOffset: {x: 0, y: 0.25, z: -0.93}
+  uiScale: {x: 0.005, y: 0.005, z: 0.005}
 --- !u!114 &606980913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1939,7 +1940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2845,6 +2846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd15d2766bddf1646be7a02f144e74de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMSemanticController
+  isLocked: 0
   statusUIParent: {fileID: 141234164}
   uiAutoHideDelay: 5
   geminiApiKey: 
@@ -3070,7 +3072,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Next Stage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3489,6 +3491,7 @@ MonoBehaviour:
   objectLabel: Can
   nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
   uiOffset: {x: 0, y: 0.25, z: 0}
+  uiScale: {x: 0.005, y: 0.005, z: 0.005}
 --- !u!114 &1713436247 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 657184242539281771, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}

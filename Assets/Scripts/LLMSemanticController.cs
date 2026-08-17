@@ -19,7 +19,7 @@ public class BindingData
 {
     public string source;
     public string target;
-    public string action;   // Supports: "Rotate", "Scale", "Translate", "AskUser", "RejectAmbiguous", "PointAndSelect_Rotate", "PointAndSelect_Scale", "PointAndSelect_Translate", "Clear", "None"
+    public string action;   // Supports: "Rotate", "Scale", "Translate", "AskUser", "RejectAmbiguous", "PointAndSelect_Rotate", "PointAndSelect_Scale", "PointAndSelect_Translate", "Clear", "Lock", "Unlock", "None"
 }
 
 [Serializable]
@@ -68,7 +68,17 @@ public class LLMSemanticController : MonoBehaviour
 
     [Header("State & Tutorial Tracking")]
     public string LastBindingMethod { get; private set; } = BIND_METHOD_NONE;
-    public string LastActiveAction { get; private set; } = "None"; // 新增：供后续识别控制方式 (Rotate, Scale, Translate)
+    public string LastActiveAction { get; private set; } = "None"; // 供后续识别控制方式 (Rotate, Scale, Translate)
+
+    [Header("Lock Status & Physics Settings")]
+    [Tooltip("当前目标物体是否处于位置/旋转/缩放锁定状态")]
+    public bool isLocked = false;
+    private Vector3 lockedPosition;
+    private Quaternion lockedRotation;
+    private Vector3 lockedScale;
+
+    private bool targetHasRigidbody = false;
+    private bool originalIsKinematic = false;
 
     [Header("UI Feedback Settings")]
     public GameObject statusUIParent;
@@ -140,7 +150,9 @@ public class LLMSemanticController : MonoBehaviour
         "4. CRITICAL RULE FOR AMBIGUOUS DEMONSTRATIVES: If user uses 'this' or 'that' AND only vaguely says 'control', 'connect', or 'link' WITHOUT specifying the action mode (e.g., 'I want to control this with that', 'control this with that'): action MUST BE 'RejectAmbiguous'.\n" +
         "5. If demonstrative pronouns ('this', 'that') are used WITH a specific verb: use 'PointAndSelect_Rotate', 'PointAndSelect_Scale', or 'PointAndSelect_Translate'.\n" +
         "6. If user vaguely says 'control', 'connect', or 'link' with SPECIFIC object names (e.g., 'control the cube with the can'): action is 'AskUser'.\n" +
-        "7. If user wants to unbind/disconnect (e.g., 'disconnect', 'unbind', 'clear'): action is 'Clear'. Otherwise 'None'.\n" +
+        "7. If user wants to unbind/disconnect (e.g., 'disconnect', 'unbind', 'clear'): action is 'Clear'.\n" +
+        "8. If user explicitly requests to lock/freeze position, rotation or scale (e.g., 'lock', 'freeze'): action is 'Lock'.\n" +
+        "9. If user explicitly requests to unlock/unfreeze (e.g., 'unlock', 'unfreeze'): action is 'Unlock'. Otherwise 'None'.\n" +
         "Example output: {\"source\": \"this\", \"target\": \"that\", \"action\": \"RejectAmbiguous\"}";
 
     private void Awake()
@@ -232,7 +244,14 @@ public class LLMSemanticController : MonoBehaviour
 
     private void Update()
     {
-        if (isBound && currentSource != null && currentTarget != null)
+        // 核心锁定逻辑：如果处于锁定状态且存在目标物体，硬性维持 Transform 快照
+        if (isLocked && currentTarget != null)
+        {
+            currentTarget.transform.position = lockedPosition;
+            currentTarget.transform.rotation = lockedRotation;
+            currentTarget.transform.localScale = lockedScale;
+        }
+        else if (isBound && currentSource != null && currentTarget != null)
         {
             if (activeAction.Equals("Rotate", StringComparison.OrdinalIgnoreCase))
             {
@@ -269,11 +288,121 @@ public class LLMSemanticController : MonoBehaviour
         HandlePointAndSelectInput();
     }
 
+    // ==========================================
+    // Mode Switching Method
+    // ==========================================
+
     /// <summary>
-    /// 供 Tutorial 脚本在 Stage 开始时调用的重置方法，清空一切状态
+    /// 在已建立连接的状态下，直接平滑切换当前的控制模式 (Rotate, Scale, Translate/Move)
     /// </summary>
+    public bool SwitchControlMode(string newAction)
+    {
+        if (!isBound || currentSource == null || currentTarget == null) return false;
+
+        string normalizedAction = newAction;
+        if (newAction.Equals("Move", StringComparison.OrdinalIgnoreCase))
+        {
+            normalizedAction = "Translate";
+        }
+
+        if (!normalizedAction.Equals("Rotate", StringComparison.OrdinalIgnoreCase) &&
+            !normalizedAction.Equals("Scale", StringComparison.OrdinalIgnoreCase) &&
+            !normalizedAction.Equals("Translate", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        UnlockTarget();
+
+        activeAction = normalizedAction;
+        LastActiveAction = normalizedAction;
+
+        // 重新捕获/对齐当前的基准 Transform，防止模式切换时发生突变与跳跃
+        initialSourceRot = currentSource.transform.rotation;
+        initialTargetRot = currentTarget.transform.rotation;
+        initialTargetScale = currentTarget.transform.localScale;
+        initialSourcePos = currentSource.transform.position;
+        initialTargetPos = currentTarget.transform.position;
+
+        SetStatusUI($"<color=#00FF00>🔄 Mode Switched to [{activeAction}]!</color>\n<color=yellow>{currentSource.name}</color> ➔ <color=#FF8C00>{currentTarget.name}</color>", true, autoHide: true);
+        Debug.Log($"<color=cyan>[LLM Controller]</color> Connection mode directly switched to: {activeAction}");
+
+        return true;
+    }
+
+    // ==========================================
+    // Lock / Unlock Management Methods
+    // ==========================================
+
+    public void LockTarget()
+    {
+        if (currentTarget == null)
+        {
+            SetStatusUI("<color=orange>⚠️ Lock Failed!</color>\nNo active target object to lock.", true, autoHide: true);
+            return;
+        }
+
+        if (currentTarget.TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            targetHasRigidbody = true;
+            originalIsKinematic = rb.isKinematic;
+
+#if UNITY_6000_0_OR_NEWER
+            rb.linearVelocity = Vector3.zero;
+#else
+            rb.velocity = Vector3.zero;
+#endif
+            rb.angularVelocity = Vector3.zero;
+
+            rb.isKinematic = true;
+        }
+        else
+        {
+            targetHasRigidbody = false;
+        }
+
+        isLocked = true;
+        lockedPosition = currentTarget.transform.position;
+        lockedRotation = currentTarget.transform.rotation;
+        lockedScale = currentTarget.transform.localScale;
+
+        SetStatusUI($"<color=#FFD700>🔒 Target Locked!</color>\n<color=yellow>{currentTarget.name}</color> position & scale frozen.", true, autoHide: true);
+        Debug.Log($"[LLM Controller] Target [{currentTarget.name}] locked. (Has Rigidbody: {targetHasRigidbody})");
+    }
+
+    public void UnlockTarget()
+    {
+        if (isLocked)
+        {
+            if (currentTarget != null && targetHasRigidbody && currentTarget.TryGetComponent<Rigidbody>(out Rigidbody rb))
+            {
+                rb.isKinematic = originalIsKinematic;
+
+#if UNITY_6000_0_OR_NEWER
+                rb.linearVelocity = Vector3.zero;
+#else
+                rb.velocity = Vector3.zero;
+#endif
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            targetHasRigidbody = false;
+            isLocked = false;
+
+            SetStatusUI($"<color=#00FF00>🔓 Target Unlocked!</color>\n<color=yellow>{(currentTarget != null ? currentTarget.name : "Target")}</color> resumed.", true, autoHide: true);
+            Debug.Log("[LLM Controller] Target unlocked.");
+        }
+    }
+
+    public void OnConnectionChanged()
+    {
+        UnlockTarget();
+    }
+
     public void ForceResetBinding()
     {
+        UnlockTarget();
+
         isBound = false;
         currentSource = null;
         currentTarget = null;
@@ -417,15 +546,14 @@ public class LLMSemanticController : MonoBehaviour
         return null;
     }
 
-    /// <summary>
-    /// 核心确认绑定函数：记录并更新绑定方式与控制动作类型，向外返回绑定方式
-    /// </summary>
     public string ConfirmBinding(GameObject sourceObj, GameObject targetObj, string actionType)
     {
+        UnlockTarget();
+
         currentSource = sourceObj;
         currentTarget = targetObj;
         activeAction = actionType;
-        LastActiveAction = actionType; // 记录当前控制方式 (Rotate, Scale, Translate)
+        LastActiveAction = actionType;
 
         initialSourceRot = currentSource.transform.rotation;
         initialTargetRot = currentTarget.transform.rotation;
@@ -436,7 +564,6 @@ public class LLMSemanticController : MonoBehaviour
 
         isBound = true;
 
-        // 判定绑定方式
         string bindMethod = (currentState == ControllerState.SelectingTarget ||
                              currentState == ControllerState.SelectingSource) ? BIND_METHOD_POINT : BIND_METHOD_NAME;
 
@@ -445,29 +572,56 @@ public class LLMSemanticController : MonoBehaviour
 
         SetStatusUI($"<color=#00FF00>✅ Bound ({activeAction}) [{bindMethod}]!</color>\n<color=yellow>{currentSource.name}</color> ➔ <color=#FF8C00>{currentTarget.name}</color>", true, autoHide: true);
 
-        // Notify tutorial subscribers that a binding was successfully created
         OnBindingCreated?.Invoke(currentSource.name, currentTarget.name);
 
         return bindMethod;
     }
 
-    /// <summary>
-    /// 支持在追问模式下返回文本判定结果
-    /// </summary>
     public string SendTextWithVisionPrompt(string userInput)
     {
+        string textLower = userInput.ToLower().Trim();
+
+        // 1. 快速单词检测 Lock / Unlock
+        if (textLower == "lock" || textLower == "freeze")
+        {
+            LockTarget();
+            return "Lock";
+        }
+        if (textLower == "unlock" || textLower == "unfreeze")
+        {
+            UnlockTarget();
+            return "Unlock";
+        }
+
+        // 2. 【情况1拦截】若已连接，直接在本地响应 Move / Scale / Rotate，无需调 API
+        if (isBound && currentSource != null && currentTarget != null)
+        {
+            if (textLower.Contains("rotate") || textLower.Contains("turn") || textLower.Contains("旋转"))
+            {
+                if (SwitchControlMode("Rotate")) return "Rotate";
+            }
+            else if (textLower.Contains("scale") || textLower.Contains("size") || textLower.Contains("resize") || textLower.Contains("缩放") || textLower.Contains("大小"))
+            {
+                if (SwitchControlMode("Scale")) return "Scale";
+            }
+            else if (textLower.Contains("move") || textLower.Contains("translate") || textLower.Contains("position") || textLower.Contains("移动") || textLower.Contains("平移"))
+            {
+                if (SwitchControlMode("Translate")) return "Translate";
+            }
+        }
+
+        // 3. 追问模式（AskUser）确认控制动作
         if (currentState == ControllerState.AwaitingControlMode)
         {
-            string textLower = userInput.ToLower().Trim();
-            if (textLower.Contains("rotate") || textLower.Contains("turn"))
+            if (textLower.Contains("rotate") || textLower.Contains("turn") || textLower.Contains("旋转"))
             {
                 return ConfirmBinding(pendingSource, pendingTarget, "Rotate");
             }
-            else if (textLower.Contains("scale") || textLower.Contains("size") || textLower.Contains("bigger") || textLower.Contains("smaller"))
+            else if (textLower.Contains("scale") || textLower.Contains("size") || textLower.Contains("bigger") || textLower.Contains("smaller") || textLower.Contains("缩放"))
             {
                 return ConfirmBinding(pendingSource, pendingTarget, "Scale");
             }
-            else if (textLower.Contains("move") || textLower.Contains("translate") || textLower.Contains("position"))
+            else if (textLower.Contains("move") || textLower.Contains("translate") || textLower.Contains("position") || textLower.Contains("移动"))
             {
                 return ConfirmBinding(pendingSource, pendingTarget, "Translate");
             }
@@ -586,7 +740,7 @@ public class LLMSemanticController : MonoBehaviour
     }
 
     /// <summary>
-    /// 解析并执行动态视觉绑定，返回连接方式状态字符串
+    /// 解析并执行动态视觉绑定
     /// </summary>
     public string ApplyDynamicVisionBinding(string jsonContent)
     {
@@ -594,9 +748,23 @@ public class LLMSemanticController : MonoBehaviour
         {
             BindingData data = JsonUtility.FromJson<BindingData>(jsonContent);
 
-            // 1. Process Clear / Disconnect
+            // 1. Process Lock & Unlock
+            if (data.action.Equals("Lock", StringComparison.OrdinalIgnoreCase))
+            {
+                LockTarget();
+                return "Lock";
+            }
+            if (data.action.Equals("Unlock", StringComparison.OrdinalIgnoreCase))
+            {
+                UnlockTarget();
+                return "Unlock";
+            }
+
+            // 2. Process Clear / Disconnect
             if (data.action.Equals("Clear", StringComparison.OrdinalIgnoreCase))
             {
+                UnlockTarget();
+
                 isBound = false;
                 currentSource = null;
                 currentTarget = null;
@@ -607,12 +775,24 @@ public class LLMSemanticController : MonoBehaviour
 
                 SetStatusUI("<color=yellow>🔓 Binding Cleared / Disconnected!</color>", true, autoHide: true);
 
-                // Notify tutorial subscribers that binding was cleared
                 OnBindingCleared?.Invoke();
                 return "Clear";
             }
 
-            // 2. Reject Ambiguous Commands
+            // 3. 【情况 1 核心修复】已建立连接时优先拦截模式切换，防止进入下方场景物体匹配逻辑导致 Object Match Failed
+            if (isBound && currentSource != null && currentTarget != null)
+            {
+                if (data.action.Equals("Rotate", StringComparison.OrdinalIgnoreCase) ||
+                    data.action.Equals("Scale", StringComparison.OrdinalIgnoreCase) ||
+                    data.action.Equals("Translate", StringComparison.OrdinalIgnoreCase) ||
+                    data.action.Equals("Move", StringComparison.OrdinalIgnoreCase))
+                {
+                    SwitchControlMode(data.action);
+                    return data.action;
+                }
+            }
+
+            // 4. Reject Ambiguous Commands
             if (data.action.Equals("RejectAmbiguous", StringComparison.OrdinalIgnoreCase) ||
                ((data.source.Equals("this", StringComparison.OrdinalIgnoreCase) || data.target.Equals("that", StringComparison.OrdinalIgnoreCase)) && data.action.Equals("AskUser", StringComparison.OrdinalIgnoreCase)))
             {
@@ -631,11 +811,13 @@ public class LLMSemanticController : MonoBehaviour
                 return "RejectAmbiguous";
             }
 
-            // 3. Point-and-Select Manual Handling
+            // 5. Point-and-Select Manual Handling
             if (data.action.StartsWith("PointAndSelect", StringComparison.OrdinalIgnoreCase) ||
                 data.source.Equals("this", StringComparison.OrdinalIgnoreCase) ||
                 data.target.Equals("that", StringComparison.OrdinalIgnoreCase))
             {
+                UnlockTarget();
+
                 isBound = false;
                 currentSource = null;
                 currentTarget = null;
@@ -649,7 +831,7 @@ public class LLMSemanticController : MonoBehaviour
                     activeAction = "Rotate";
                 }
 
-                LastActiveAction = activeAction; // 记录点选流程中解析出的动作
+                LastActiveAction = activeAction;
                 currentState = ControllerState.SelectingSource;
                 mustReleaseTriggerFirst = true;
 
@@ -657,7 +839,7 @@ public class LLMSemanticController : MonoBehaviour
                 return BIND_METHOD_POINT;
             }
 
-            // 4. Object Name Matching in Scene
+            // 6. Object Name Matching in Scene
             SelectableObject[] sceneObjects = FindObjectsOfType<SelectableObject>();
             GameObject foundSource = null;
             GameObject foundTarget = null;
@@ -689,7 +871,7 @@ public class LLMSemanticController : MonoBehaviour
                 return "MatchFailed";
             }
 
-            // 5. AskUser Ambiguous Voice Handling
+            // 7. AskUser Ambiguous Voice Handling
             if (data.action.Equals("AskUser", StringComparison.OrdinalIgnoreCase))
             {
                 pendingSource = foundSource;
@@ -700,8 +882,8 @@ public class LLMSemanticController : MonoBehaviour
                 return "AskUser";
             }
 
-            // 6. Confirm Explicit Action Binding
-            if (data.action == "Rotate" || data.action == "Scale" || data.action == "Translate")
+            // 8. Confirm Explicit Action Binding
+            if (data.action == "Rotate" || data.action == "Scale" || data.action == "Translate" || data.action == "Move")
             {
                 return ConfirmBinding(foundSource, foundTarget, data.action);
             }

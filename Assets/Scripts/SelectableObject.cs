@@ -11,8 +11,11 @@ public class SelectableObject : MonoBehaviour
     [Tooltip("第一步制作的名称标签预制体 (ObjectNameTag)")]
     public GameObject nameTagPrefab;
 
-    [Tooltip("名称标签悬浮在物体上方的位置偏移量")]
+    [Tooltip("名称标签悬浮在物体上方的位置偏移量（相对局部坐标）")]
     public Vector3 uiOffset = new Vector3(0f, 0.25f, 0f);
+
+    [Tooltip("名称标签 UI 的缩放比例 (Vector3)")]
+    public Vector3 uiScale = new Vector3(0.005f, 0.005f, 0.005f);
 
     private GameObject instantiatedTag;
     private TextMeshProUGUI nameTextComponent;
@@ -21,6 +24,18 @@ public class SelectableObject : MonoBehaviour
     private void Start()
     {
         InitializeNameTag();
+    }
+
+    /// <summary>
+    /// 当在 Inspector 中修改数值时自动调用，实现在编辑器中实时刷新 Scale 和 Offset
+    /// </summary>
+    private void OnValidate()
+    {
+        if (instantiatedTag != null)
+        {
+            instantiatedTag.transform.localPosition = uiOffset;
+            instantiatedTag.transform.localScale = uiScale;
+        }
     }
 
     /// <summary>
@@ -34,8 +49,13 @@ public class SelectableObject : MonoBehaviour
             return;
         }
 
-        // 实例化预制体并作为当前物体的子节点
-        instantiatedTag = Instantiate(nameTagPrefab, transform.position + uiOffset, Quaternion.identity, transform);
+        // 实例化预制体，直接设置父节点
+        instantiatedTag = Instantiate(nameTagPrefab, transform);
+
+        // 使用 localPosition 设置相对偏移量
+        instantiatedTag.transform.localPosition = uiOffset;
+        instantiatedTag.transform.localRotation = Quaternion.identity;
+        instantiatedTag.transform.localScale = uiScale;
 
         // 获取 TextMeshProUGUI 组件并更新文本
         nameTextComponent = instantiatedTag.GetComponentInChildren<TextMeshProUGUI>();
@@ -59,7 +79,10 @@ public class SelectableObject : MonoBehaviour
     {
         if (!isGrabbed && instantiatedTag != null)
         {
-            // 确保每次显示时再次同步文本（防止运行时动态改了 objectLabel）
+            // 确保每次显示时同步 localPosition 与 Scale
+            instantiatedTag.transform.localPosition = uiOffset;
+            instantiatedTag.transform.localScale = uiScale;
+
             if (nameTextComponent != null)
             {
                 nameTextComponent.text = objectLabel;
@@ -96,12 +119,24 @@ public class SelectableObject : MonoBehaviour
         isGrabbed = false;
     }
 
+    private void LateUpdate()
+    {
+        // 确保 UI 激活时始终面向 VR 视角/主相机，且位置精准维持在 localPosition 偏移上
+        if (instantiatedTag != null && instantiatedTag.activeSelf && Camera.main != null)
+        {
+            instantiatedTag.transform.localPosition = uiOffset;
+            instantiatedTag.transform.rotation = Quaternion.LookRotation(
+                instantiatedTag.transform.position - Camera.main.transform.position
+            );
+        }
+    }
+
     /// <summary>
     /// 在 Scene 视图中绘制 Gizmo，方便在编辑器内可视化调整 UI 的悬浮位置
     /// </summary>
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position + uiOffset, 0.03f);
+        Gizmos.DrawWireSphere(transform.TransformPoint(uiOffset), 0.03f);
     }
 }
