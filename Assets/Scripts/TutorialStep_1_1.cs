@@ -14,12 +14,13 @@ public class TutorialStep_1_1 : MonoBehaviour
     public MonoBehaviour nextStageScript;
 
     // 状态硬锁
-    private bool task1Completed = false;
-    private bool isStepCompleted = false;
+    private bool task1Completed = false;      // 1. 建立绑定完成
+    private bool taskLockCompleted = false;   // 2. Lock 锁定完成
+    private bool isStepCompleted = false;     // 3. 整个 Stage 完成
     private bool isHandlingIncorrectBinding = false;
-    private float task1CompletedTime = 0f; // 记录 Task 1 完成的时间戳
+    private float taskLockCompletedTime = 0f; // 记录 Lock 完成的时间戳，用于防抖
 
-    private const string TASK_1_INSTRUCTION = "Stage 1-1 (Task 1/2):\nHold Trigger on Right Hand and say:\n\"Move the cube with the can\"";
+    private const string TASK_1_INSTRUCTION = "Stage 1-1 (Task 1/3):\nHold Trigger on Right Hand and say:\n\"Move the cube with the can\"";
 
     private void OnEnable()
     {
@@ -31,11 +32,12 @@ public class TutorialStep_1_1 : MonoBehaviour
             controller.ForceResetBinding();
         }
 
-        // 2. 初始化重置所有锁变量
+        // 2. 初始化重置所有标志位
         task1Completed = false;
+        taskLockCompleted = false;
         isStepCompleted = false;
         isHandlingIncorrectBinding = false;
-        task1CompletedTime = 0f;
+        taskLockCompletedTime = 0f;
 
         UpdateDirectiveText(TASK_1_INSTRUCTION);
 
@@ -51,6 +53,24 @@ public class TutorialStep_1_1 : MonoBehaviour
     {
         LLMSemanticController.OnBindingCreated -= HandleBindingCreated;
         LLMSemanticController.OnBindingCleared -= HandleBindingCleared;
+    }
+
+    private void Update()
+    {
+        // 核心新增：监测用户建立绑定后是否成功触发了 Lock (controller.isLocked 为 true)
+        if (task1Completed && !taskLockCompleted && controller != null && controller.isLocked)
+        {
+            taskLockCompleted = true;
+            taskLockCompletedTime = Time.time; // 记录 Lock 完成的时间戳
+            Debug.Log("<color=green>[Stage 1-1]</color> Task Lock Completed!");
+
+            // 锁定成功后提示用户功能用途，并引导尝试解绑
+            UpdateDirectiveText(
+                "🔒 Target Locked!\n\n" +
+                "You can use Lock to freeze the controlled object's position when needed.\n\n" +
+                "Stage 1-1 (Task 3/3):\nNow try unbinding.\nHold Trigger and say:\n\"Disconnect\" or \"Clear\""
+            );
+        }
     }
 
     public void HandleBindingCreated(string sourceObj, string targetObj)
@@ -83,10 +103,13 @@ public class TutorialStep_1_1 : MonoBehaviour
         if (!task1Completed)
         {
             task1Completed = true;
-            task1CompletedTime = Time.time; // 记录 Task 1 完成的时间
             Debug.Log("<color=green>[Stage 1-1]</color> Task 1 Completed with Explicit Names and Translate Action!");
 
-            UpdateDirectiveText("✅ Bound successfully with object names!\n\nStage 1-1 (Task 2/2):\nNow try unbinding.\nHold Trigger and say:\n\"Disconnect\" or \"Clear\"");
+            // 提示用户下一步执行 Lock 锁定操作
+            UpdateDirectiveText(
+                "✅ Bound successfully with object names!\n\n" +
+                "Stage 1-1 (Task 2/3):\nNow try locking the object.\nHold Trigger and say:\n\"Lock\""
+            );
         }
     }
 
@@ -94,6 +117,7 @@ public class TutorialStep_1_1 : MonoBehaviour
     {
         isHandlingIncorrectBinding = true;
         task1Completed = false;
+        taskLockCompleted = false;
 
         Debug.LogWarning("[Stage 1-1] Incorrect binding detected! Showing error & resetting...");
 
@@ -118,14 +142,13 @@ public class TutorialStep_1_1 : MonoBehaviour
         // 防护 1：误操作自动清空时，不响应跳级
         if (isHandlingIncorrectBinding) return;
 
-        // 防护 2：必须先完成 Task 1
-        if (!task1Completed || isStepCompleted) return;
+        // 防护 2：必须先依次完成 Task 1 (建立绑定) 与 Task 2 (成功 Lock)
+        if (!task1Completed || !taskLockCompleted || isStepCompleted) return;
 
-        // 核心修复防护 3：防止 Task 1 刚建立时残留的/同一次请求返回的 Clear 回调瞬间触发 Task 2
-        // 解绑指令必须在 Task 1 建立成功至少 1.5 秒后收到才有效（保证是受试者第二次说 Clear 触发的）
-        if (Time.time - task1CompletedTime < 1.5f)
+        // 防护 3：防止 Lock 完成后瞬间触发残留回调，需间隔至少 1.5 秒
+        if (Time.time - taskLockCompletedTime < 1.5f)
         {
-            Debug.LogWarning("[Stage 1-1] Ignored premature Clear event triggered right after binding.");
+            Debug.LogWarning("[Stage 1-1] Ignored premature Clear event triggered right after locking.");
             return;
         }
 

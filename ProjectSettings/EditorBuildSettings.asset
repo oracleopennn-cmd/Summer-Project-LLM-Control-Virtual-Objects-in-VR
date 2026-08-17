@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BasicScene.unity
     guid: 4e9fef26e6adb88479ad1b9834a32d94
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LLM+Voice Control/Tutorial.unity
     guid: 2fc4590fe8b879246b7f3c60cceeba7e
   - enabled: 1
