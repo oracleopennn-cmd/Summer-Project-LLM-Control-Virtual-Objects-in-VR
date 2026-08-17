@@ -2253,7 +2253,7 @@ MonoBehaviour:
   isLocked: 0
   statusUIParent: {fileID: 141234164}
   uiAutoHideDelay: 5
-  geminiApiKey: AQ.Ab8RN6I_IfOYqiaN6GKFI4qzDjMQromCk0d45Mt2p8BuXlw9jg
+  geminiApiKey: 
   modelName: gemini-3.1-flash-lite
   mainVRCamera: {fileID: 1128746139}
   leftRayInteractor: {fileID: 1713436247}
