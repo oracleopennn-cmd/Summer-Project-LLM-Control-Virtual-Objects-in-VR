@@ -2861,6 +2861,7 @@ MonoBehaviour:
   scaleSensitivity: 0.01
   minScale: 0.1
   maxScale: 5
+  translateSensitivity: 1
   currentState: 0
 --- !u!4 &1416489529
 Transform:

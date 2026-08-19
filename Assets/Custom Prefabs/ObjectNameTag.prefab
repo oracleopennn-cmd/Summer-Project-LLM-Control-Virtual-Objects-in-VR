@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 5748620468011170846}
   - component: {fileID: 1133916034403021197}
   - component: {fileID: 794313941395078735}
+  - component: {fileID: 2344699974511040734}
   m_Layer: 5
   m_Name: ObjectNameTag
   m_TagString: Untagged
@@ -197,7 +198,7 @@ MonoBehaviour:
   m_CheckFor3DOcclusion: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_RaycastTriggerInteraction: 1
 --- !u!114 &794313941395078735
 MonoBehaviour:
@@ -211,6 +212,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f28d74bf09b3f41b7fa9ceee3a2474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Billboard
+--- !u!225 &2344699974511040734
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015630677957790889}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &7741831670513124771
 GameObject:
   m_ObjectHideFlags: 0

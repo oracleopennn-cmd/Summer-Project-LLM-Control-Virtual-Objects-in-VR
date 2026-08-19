@@ -76,12 +76,14 @@
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\SceneSwitchGen.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Windows\opencloseWindow.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleVisibility.cs" />
+    <Compile Include="Assets\Scripts\Stage3_Manager.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\First Person Player\MouseLook.cs" />
     <Compile Include="Assets\VRTemplateAssets\Scripts\RayAttachModifier.cs" />
     <Compile Include="Assets\Scripts\SelectableObject.cs" />
     <Compile Include="Assets\Scripts\VoiceInputController.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Z Axis -1\Drawer_Pull_Zopp.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnButtonPress.cs" />
+    <Compile Include="Assets\Scripts\FlexibleTargetSlot.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipR.cs" />
     <Compile Include="Assets\_Course Library\_Prefabs\Objects\Electronics\FunctionTheClock.cs" />
     <Compile Include="Assets\VRTemplateAssets\Scripts\XRPokeFollowAffordanceFill.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Assets\_Course Library\Scripts\Actions\ManuallySelectObject.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\opencloseSlide.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseDoor.cs" />
+    <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetParticleRate.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRSlider.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRButton.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnSceneLoad.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ChangeMaterial.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\LoadScene.cs" />
+    <Compile Include="Assets\Scripts\BlockIdentity.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\FadeCanvasOnOverlap.cs" />
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\TableFlip\TableFlipL.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnCollision.cs" />
