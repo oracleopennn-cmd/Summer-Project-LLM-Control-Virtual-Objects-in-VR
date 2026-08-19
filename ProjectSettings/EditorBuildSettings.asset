@@ -11,12 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BasicScene.unity
     guid: 4e9fef26e6adb88479ad1b9834a32d94
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/LLM+Voice Control/Tutorial.unity
     guid: 2fc4590fe8b879246b7f3c60cceeba7e
   - enabled: 1
     path: Assets/Scenes/LLM+Voice Control/Stage 2.unity
     guid: c43add4c39499ac428577d2a4e694707
+  - enabled: 1
+    path: Assets/Scenes/LLM+Voice Control/Stage 3.unity
+    guid: 33285c0056ed0614a852b17cb0b43990
+  - enabled: 0
+    path: Assets/Scenes/LLM+Voice Control/Stage 4.unity
+    guid: 0baac86a947db1b448f3a4cc9b41123a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
