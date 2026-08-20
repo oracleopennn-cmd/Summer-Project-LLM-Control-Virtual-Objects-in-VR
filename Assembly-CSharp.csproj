@@ -124,8 +124,11 @@
     <Compile Include="Assets\Brick Project Studio\Apartment Kit\Common\Scripts &amp; Animation\Slide\opencloseSlide.cs" />
     <Compile Include="Assets\Brick Project Studio\_BPS Basic Assets\Common\Scripts and Animations\Doors\opencloseDoor.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\VRNameTagManager.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetParticleRate.cs" />
+    <Compile Include="Assets\Scripts\HandFeedbackController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRSlider.cs" />
+    <Compile Include="Assets\Scripts\ExperimentConfigManager.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Controls\XRButton.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Testing\TeleportAnchorWithFade.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SpawnObject.cs" />

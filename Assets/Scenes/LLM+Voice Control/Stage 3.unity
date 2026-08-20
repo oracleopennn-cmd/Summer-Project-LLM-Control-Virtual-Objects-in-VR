@@ -456,9 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Triangle
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: -2.89, y: 6.11, z: -3.16}
-  uiScale: {x: 0.05, y: 0.05, z: 0.05}
+  isGrabbed: 0
 --- !u!114 &191871069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,10 +493,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 191871068}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -510,10 +508,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 191871068}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1089,6 +1087,109 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 813470642}
   m_SourcePrefab: {fileID: 100100000, guid: cec7e74c6924ec34c977bf9ecee1f1b5, type: 3}
+--- !u!1 &643717647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 643717648}
+  - component: {fileID: 643717651}
+  - component: {fileID: 643717650}
+  - component: {fileID: 643717649}
+  m_Layer: 0
+  m_Name: Feedback Animations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &643717648
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643717647}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0008, y: 0.0008, z: 0.0008}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1097110103}
+  - {fileID: 1947617172}
+  m_Father: {fileID: 1705580000}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.0851}
+  m_SizeDelta: {x: 205.52, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &643717649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643717647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &643717650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643717647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!223 &643717651
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643717647}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 1128746139}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1001 &665586500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1173,9 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Green book
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: 0, y: 0.25, z: 0}
-  uiScale: {x: 0.002, y: 0.002, z: 0.002}
+  isGrabbed: 0
 --- !u!114 &665586503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1212,10 +1311,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 665586502}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1227,10 +1326,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 665586502}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1487,9 +1586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Cube2
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: -2.77, y: 2.29, z: -7.97}
-  uiScale: {x: 0.03, y: 0.03, z: 0.03}
+  isGrabbed: 0
 --- !u!114 &813470641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1526,10 +1623,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 813470640}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1541,10 +1638,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 813470640}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1807,6 +1904,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+--- !u!1 &1097110102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1097110103}
+  - component: {fileID: 1097110105}
+  - component: {fileID: 1097110104}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1097110103
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097110102}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 643717648}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 206.8, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1097110104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097110102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.50980395}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1097110105
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097110102}
+  m_CullTransparentMesh: 1
 --- !u!20 &1128746139 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 657184242118504724, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
@@ -1919,10 +2091,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1163645453}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1934,10 +2106,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1163645453}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2076,9 +2248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Can
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: 0, y: 0.25, z: 0}
-  uiScale: {x: 0.002, y: 0.002, z: 0.002}
+  isGrabbed: 0
 --- !u!1001 &1204737737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2214,10 +2384,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1204737741}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2229,10 +2399,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1204737741}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2289,9 +2459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Cube1
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: 7.13, y: 5.45, z: -7}
-  uiScale: {x: 0.03, y: 0.03, z: 0.03}
+  isGrabbed: 0
 --- !u!54 &1204737742
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2546,6 +2714,8 @@ GameObject:
   - component: {fileID: 1279166559}
   - component: {fileID: 1279166558}
   - component: {fileID: 1279166560}
+  - component: {fileID: 1279166561}
+  - component: {fileID: 1279166562}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -2605,6 +2775,40 @@ MonoBehaviour:
   scatteredBlockScale: 0.1
   totalTrials: 3
   currentTrialIndex: 0
+--- !u!114 &1279166561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279166557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c3d4ab3a3476342ba84ca6e8191dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VRNameTagManager
+  hudContainer: {fileID: 1407413894}
+  nameText: {fileID: 1407413893}
+--- !u!114 &1279166562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279166557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94631400fcdb4564f9f92eeb3a01fe5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HandFeedbackController
+  targetController: {fileID: 0}
+  localPositionOffset: {x: 0, y: 0.08, z: 0.02}
+  localRotationOffset: {x: 0, y: 0, z: 0}
+  smoothSpeed: 0
+  feedbackRoot: {fileID: 643717647}
+  statusText: {fileID: 1947617173}
+  spinnerIcon: {fileID: 0}
+  rightRayInteractor: {fileID: 511543010}
 --- !u!1001 &1297263851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2705,9 +2909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Plant
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: 0, y: 0.25, z: 0}
-  uiScale: {x: 0.005, y: 0.005, z: 0.005}
+  isGrabbed: 0
 --- !u!114 &1297263854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2744,10 +2946,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1297263853}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2759,10 +2961,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1297263853}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2960,10 +3162,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1356291357}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2975,10 +3177,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1356291357}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3117,9 +3319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Bottle
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: 0, y: 0.25, z: 0}
-  uiScale: {x: 0.002, y: 0.002, z: 0.002}
+  isGrabbed: 0
 --- !u!1 &1370833805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 657184243640684908, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
@@ -3172,6 +3372,136 @@ MonoBehaviour:
   OnRelease:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &1407413891
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1705579999}
+    m_Modifications:
+    - target: {fileID: 3863270537460772491, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1128746139}
+    - target: {fileID: 4467636245166017574, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_Name
+      value: ObjectNameTag
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.656
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9467055
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.32210046
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.479
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 37.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+--- !u!224 &1407413892 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7300445338785252099, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+  m_PrefabInstance: {fileID: 1407413891}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1407413893 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1601432490528378456, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+  m_PrefabInstance: {fileID: 1407413891}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &1407413894 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+  m_PrefabInstance: {fileID: 1407413891}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1416489526
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,6 +3551,7 @@ MonoBehaviour:
   isLocked: 0
   statusUIParent: {fileID: 141234164}
   uiAutoHideDelay: 5
+  handFeedback: {fileID: 1279166562}
   geminiApiKey: 
   modelName: gemini-3.5-flash-lite
   mainVRCamera: {fileID: 1128746139}
@@ -3232,7 +3563,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   scaleSensitivity: 0.01
   minScale: 0.01
-  maxScale: 5
+  maxScale: 100
   translateSensitivity: 3
   currentState: 0
 --- !u!4 &1416489529
@@ -3492,6 +3823,7 @@ GameObject:
   - component: {fileID: 1489832368}
   - component: {fileID: 1489832367}
   - component: {fileID: 1489832366}
+  - component: {fileID: 1489832371}
   m_Layer: 5
   m_Name: Stage 3 UI
   m_TagString: Untagged
@@ -3600,6 +3932,20 @@ RectTransform:
   m_AnchoredPosition: {x: -1.985, y: 2.039}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1489832371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489832365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c3d4ab3a3476342ba84ca6e8191dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VRNameTagManager
+  hudContainer: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
+  nameText: {fileID: 0}
 --- !u!1001 &1546889659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3840,10 +4186,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1612636537}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3855,10 +4201,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1612636537}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3915,9 +4261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Cube3
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: -2.77, y: 2.29, z: -7.97}
-  uiScale: {x: 0.03, y: 0.03, z: 0.03}
+  isGrabbed: 0
 --- !u!54 &1612636538
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4092,11 +4436,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 657184242118504721, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9772126
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 657184242118504721, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.21226302
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 657184242118504721, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_LocalRotation.y
@@ -4108,7 +4452,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 657184242118504721, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 24.51
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 657184242222895506, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 1386082259481429544, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_InteractionManager
@@ -4196,7 +4544,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 657184242118504721, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1407413892}
+    - targetCorrespondingSourceObject: {fileID: 657184242222895506, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 643717648}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2218496723442559054, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       insertIndex: -1
@@ -4213,6 +4567,11 @@ Transform:
 --- !u!4 &1705579999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 657184242118504721, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+  m_PrefabInstance: {fileID: 1705579997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1705580000 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 657184242222895506, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
   m_PrefabInstance: {fileID: 1705579997}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1705580004
@@ -4241,6 +4600,143 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1947617171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1947617172}
+  - component: {fileID: 1947617174}
+  - component: {fileID: 1947617173}
+  m_Layer: 0
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1947617172
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947617171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 643717648}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 85.7}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1947617173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947617171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 28
+  m_fontSizeBase: 28
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1947617174
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947617171}
+  m_CullTransparentMesh: 1
 --- !u!1 &2017287882
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,9 +5046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Blue book
-  nameTagPrefab: {fileID: 7015630677957790889, guid: e396156e0e0bb7a408adacb126c01bfe, type: 3}
-  uiOffset: {x: 0, y: 0.25, z: 0}
-  uiScale: {x: 0.002, y: 0.002, z: 0.002}
+  isGrabbed: 0
 --- !u!114 &2135019185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4589,10 +5083,10 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2135019184}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: ShowNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverEntered
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4604,10 +5098,10 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2135019184}
-        m_TargetAssemblyTypeName: SelectableObject, Assembly-CSharp
-        m_MethodName: HideNameTag
-        m_Mode: 1
+      - m_Target: {fileID: 1279166561}
+        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
+        m_MethodName: OnHoverExited
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

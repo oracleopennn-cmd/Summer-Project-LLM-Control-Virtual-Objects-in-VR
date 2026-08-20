@@ -68,7 +68,7 @@ public class TutorialStep_1_3 : MonoBehaviour
             stage2Button.onClick.AddListener(OnStage2ButtonClicked);
         }
 
-        UpdateDirectiveText("Stage 1-3: Practice all 3 Control Modes\nTry using Rotate, Scale, and Move connections.\n Hint: You can establish connections using complete sentences, or you can simply say \"rotate,\" \"scale,\" and \"move\" to change the\n connection if a connection has already been established. ");
+        UpdateDirectiveText("Stage 1-3: Practice all 3 Control Modes\nCheck out how Rotate, Move and Scale works.\n Hint: You can establish connections using complete sentences, or you can simply say \"rotate,\" \"scale,\" and \"move\" to change the\n connection if a connection has already been established. ");
 
         // 订阅绑定创建事件
         LLMSemanticController.OnBindingCreated -= HandleBindingCreated;

@@ -88,7 +88,7 @@ public class TutorialStep_1_2 : MonoBehaviour
             Debug.Log("<color=green>[Stage 1-2]</color> Task 1 Completed with Point-and-Select and Translate Action!");
 
             // 切换为 Task 2/2 指引
-            UpdateDirectiveText("✅ Demonstrative binding successful!\n\nStage 1-2 (Task 2/2):\nNow hold Trigger and say:\n\"Disconnect\" or \"Clear\" to unbind.");
+            UpdateDirectiveText("✅ Demonstrative binding successful!\nYou can grab the can up to check how the connection works.\nStage 1-2 (Task 2/2):\nNow hold Trigger and say:\n\"Disconnect\" or \"Clear\" to unbind.");
         }
     }
 

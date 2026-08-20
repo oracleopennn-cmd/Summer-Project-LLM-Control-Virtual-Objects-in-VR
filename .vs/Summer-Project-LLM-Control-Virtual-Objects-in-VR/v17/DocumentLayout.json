@@ -7,12 +7,56 @@
       "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\llmsemanticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\flexibletargetslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\flexibletargetslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|d:\\compsci summer project\\vr proj attempt\\summer-project-llm-control-virtual-objects-in-vr\\assets\\scripts\\handfeedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\handfeedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\experimentconfigmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\experimentconfigmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\stage3_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\stage3_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\stage2_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\stage2_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\sceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\sceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\vrnametagmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\vrnametagmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\llmtester.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\llmtester.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\tutorialstep_1_1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tutorialstep_1_1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\tutorialstep_1_3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tutorialstep_1_3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\tutorialstep_1_2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tutorialstep_1_2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\selectableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\selectableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\flexibletargetslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\flexibletargetslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,36 +75,8 @@
       "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\blockidentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\tutorialstep_1_3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tutorialstep_1_3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\tutorialstep_1_2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tutorialstep_1_2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\stage2_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\stage2_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\sceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\sceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\vrhudfollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\vrhudfollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\tutorialstep_1_1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tutorialstep_1_1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\selectableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\selectableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scenereloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\billboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,36 +90,170 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Bullet.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Bullet.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Bullet.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Bullet.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Bullet.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-18T22:20:20.726Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FlexibleTargetSlot.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\FlexibleTargetSlot.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\FlexibleTargetSlot.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\FlexibleTargetSlot.cs",
-              "RelativeToolTip": "Assets\\Scripts\\FlexibleTargetSlot.cs",
-              "ViewState": "AgIAAL0AAAAAAAAAAAAYwOAAAAABAAAAAAAAAA==",
+              "Title": "HandFeedbackController.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\HandFeedbackController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HandFeedbackController.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\HandFeedbackController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HandFeedbackController.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAYwK0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-18T21:02:28.799Z",
+              "WhenOpened": "2026-08-20T18:58:51.225Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ExperimentConfigManager.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\ExperimentConfigManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ExperimentConfigManager.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\ExperimentConfigManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ExperimentConfigManager.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAUwFkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-20T17:19:25.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Stage2_Manager.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage2_Manager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Stage2_Manager.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage2_Manager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Stage2_Manager.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAmwGUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T17:22:35Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TutorialStep_1_2.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_2.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TutorialStep_1_2.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_2.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TutorialStep_1_2.cs",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAAAFUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T17:59:38.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TutorialStep_1_3.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_3.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TutorialStep_1_3.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_3.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TutorialStep_1_3.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAAAEYAAABxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T18:00:23.896Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Stage3_Manager.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage3_Manager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Stage3_Manager.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage3_Manager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Stage3_Manager.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAmwCwAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-18T20:58:31.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LLMSemanticController.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\LLMSemanticController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\LLMSemanticController.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\LLMSemanticController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\LLMSemanticController.cs",
+              "ViewState": "AgIAAA0BAAAAAAAAAAAgwFQBAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T17:56:14.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SceneReloader.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneReloader.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SceneReloader.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneReloader.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SceneReloader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T14:57:34.415Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SelectableObject.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SelectableObject.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SelectableObject.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SelectableObject.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SelectableObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T22:52:56.355Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TutorialStep_1_1.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_1.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TutorialStep_1_1.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_1.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TutorialStep_1_1.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAYwHIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T23:08:32.545Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "VRNameTagManager.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\VRNameTagManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\VRNameTagManager.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\VRNameTagManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\VRNameTagManager.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAEQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-20T13:10:27.289Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "SceneLoader.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneLoader.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SceneLoader.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneLoader.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SceneLoader.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAYwD0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-17T20:27:12.246Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LLMTester.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\LLMTester.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\LLMTester.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\LLMTester.cs",
+              "RelativeToolTip": "Assets\\Scripts\\LLMTester.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-20T15:50:54.852Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "BlockIdentity.cs",
               "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\BlockIdentity.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\BlockIdentity.cs",
@@ -115,80 +265,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Stage3_Manager.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage3_Manager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Stage3_Manager.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage3_Manager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Stage3_Manager.cs",
-              "ViewState": "AgIAACIBAAAAAAAAAAAYwEUBAAABAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "FlexibleTargetSlot.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\FlexibleTargetSlot.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\FlexibleTargetSlot.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\FlexibleTargetSlot.cs",
+              "RelativeToolTip": "Assets\\Scripts\\FlexibleTargetSlot.cs",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAYwOAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-18T20:58:31.791Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Stage2_Manager.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage2_Manager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Stage2_Manager.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Stage2_Manager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Stage2_Manager.cs",
-              "ViewState": "AgIAACsBAAAAAAAAAAAYwE4BAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-17T17:22:35Z"
+              "WhenOpened": "2026-08-18T21:02:28.799Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "SceneReloader.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneReloader.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\SceneReloader.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneReloader.cs",
-              "RelativeToolTip": "Assets\\Scripts\\SceneReloader.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Bullet.cs",
+              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Bullet.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Bullet.cs",
+              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Bullet.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Bullet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-17T14:57:34.415Z"
+              "WhenOpened": "2026-08-18T22:20:20.726Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "TutorialStep_1_1.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_1.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\TutorialStep_1_1.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_1.cs",
-              "RelativeToolTip": "Assets\\Scripts\\TutorialStep_1_1.cs",
-              "ViewState": "AgIAAIkAAAAAAAAAAAAYwKwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-15T23:08:32.545Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LLMSemanticController.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\LLMSemanticController.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\LLMSemanticController.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\LLMSemanticController.cs",
-              "RelativeToolTip": "Assets\\Scripts\\LLMSemanticController.cs",
-              "ViewState": "AgIAAOEDAAAAAAAAAAAYwAQEAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-15T17:56:14.029Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "BakeScaleTool.cs",
               "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\BakeScaleTool.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\BakeScaleTool.cs",
               "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\BakeScaleTool.cs",
               "RelativeToolTip": "Assets\\Scripts\\BakeScaleTool.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-18T21:46:38.974Z"
+              "WhenOpened": "2026-08-18T21:46:38.974Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 15,
               "Title": "BakeScaleTool.cs",
               "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Editor\\BakeScaleTool.cs",
               "RelativeDocumentMoniker": "Assets\\Editor\\BakeScaleTool.cs",
@@ -200,19 +313,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "SelectableObject.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SelectableObject.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\SelectableObject.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SelectableObject.cs",
-              "RelativeToolTip": "Assets\\Scripts\\SelectableObject.cs",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAYwI0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-15T22:52:56.355Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 19,
               "Title": "Billboard.cs",
               "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\Billboard.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Billboard.cs",
@@ -224,31 +325,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "TutorialStep_1_3.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_3.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\TutorialStep_1_3.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_3.cs",
-              "RelativeToolTip": "Assets\\Scripts\\TutorialStep_1_3.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-15T18:00:23.896Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TutorialStep_1_2.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_2.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\TutorialStep_1_2.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\TutorialStep_1_2.cs",
-              "RelativeToolTip": "Assets\\Scripts\\TutorialStep_1_2.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAABUAAABkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-15T17:59:38.877Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 18,
               "Title": "VRHUDFollow.cs",
               "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\VRHUDFollow.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\VRHUDFollow.cs",
@@ -257,18 +334,6 @@
               "ViewState": "AgIAAAUAAAAAAAAAAAAYwCgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-17T16:04:39.63Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "SceneLoader.cs",
-              "DocumentMoniker": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneLoader.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\SceneLoader.cs",
-              "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\SceneLoader.cs",
-              "RelativeToolTip": "Assets\\Scripts\\SceneLoader.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAUwCUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-17T20:27:12.246Z"
             }
           ]
         }
