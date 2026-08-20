@@ -1550,9 +1550,17 @@
       <Project>{94171551-F1B3-69BF-5652-7C0B6E9C98A5}</Project>
       <Name>Unity.XR.Interaction.Toolkit.Samples.InteractionSimulator.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="LineworkLite.csproj">
+      <Project>{367DDD19-3646-F8B5-B3F4-A185FF2204CF}</Project>
+      <Name>LineworkLite</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor.csproj">
       <Project>{3CCEB438-489F-CF31-EB06-E85095D4B9DE}</Project>
       <Name>Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="LineworkLite.Editor.csproj">
+      <Project>{835AD8EC-1C9B-308C-7603-B5300636D056}</Project>
+      <Name>LineworkLite.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.Hands.Editor.csproj">
       <Project>{8DFE6FE8-2575-8AC7-3B5C-C58214D07BCA}</Project>

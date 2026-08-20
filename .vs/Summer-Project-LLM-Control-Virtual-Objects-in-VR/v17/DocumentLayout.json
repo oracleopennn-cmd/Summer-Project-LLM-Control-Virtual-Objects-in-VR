@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\llmsemanticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|d:\\compsci summer project\\vr proj attempt\\summer-project-llm-control-virtual-objects-in-vr\\assets\\scripts\\handfeedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\assets\\scripts\\handfeedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3470B003-59B9-2A79-3DA8-C9C34DF319F1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\handfeedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -102,8 +102,7 @@
               "RelativeToolTip": "Assets\\Scripts\\HandFeedbackController.cs",
               "ViewState": "AgIAAIoAAAAAAAAAAAAYwK0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-20T18:58:51.225Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-20T18:58:51.225Z"
             },
             {
               "$type": "Document",
@@ -115,8 +114,7 @@
               "RelativeToolTip": "Assets\\Scripts\\ExperimentConfigManager.cs",
               "ViewState": "AgIAAEUAAAAAAAAAAAAUwFkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-20T17:19:25.219Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-20T17:19:25.219Z"
             },
             {
               "$type": "Document",
@@ -296,8 +294,7 @@
               "ToolTip": "D:\\COMPSCI Summer Project\\VR proj attempt\\Summer-Project-LLM-Control-Virtual-Objects-in-VR\\Assets\\Scripts\\BakeScaleTool.cs",
               "RelativeToolTip": "Assets\\Scripts\\BakeScaleTool.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-18T21:46:38.974Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-18T21:46:38.974Z"
             },
             {
               "$type": "Document",
