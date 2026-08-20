@@ -68,15 +68,23 @@ public class TutorialStep_1_3 : MonoBehaviour
             stage2Button.onClick.AddListener(OnStage2ButtonClicked);
         }
 
-        UpdateDirectiveText("Stage 1-3: Practice all 3 Control Modes\nTry using Rotate, Scale, and Move connections.");
+        UpdateDirectiveText("Stage 1-3: Practice all 3 Control Modes\nCheck out how Rotate, Move and Scale works.\n Hint: You can establish connections using complete sentences, or you can simply say \"rotate,\" \"scale,\" and \"move\" to change the\n connection if a connection has already been established. ");
 
+        // 订阅绑定创建事件
         LLMSemanticController.OnBindingCreated -= HandleBindingCreated;
         LLMSemanticController.OnBindingCreated += HandleBindingCreated;
+
+        // ➕ 核心新增：订阅模式直接切换事件
+        LLMSemanticController.OnControlModeSwitched -= HandleControlModeSwitched;
+        LLMSemanticController.OnControlModeSwitched += HandleControlModeSwitched;
     }
 
     private void OnDisable()
     {
         LLMSemanticController.OnBindingCreated -= HandleBindingCreated;
+
+        // 取消订阅切换事件
+        LLMSemanticController.OnControlModeSwitched -= HandleControlModeSwitched;
 
         if (stage2Button != null)
         {
@@ -84,24 +92,38 @@ public class TutorialStep_1_3 : MonoBehaviour
         }
     }
 
+    // 1. 处理新建立绑定时的回调
     public void HandleBindingCreated(string sourceObj, string targetObj)
     {
-        if (isStepCompleted || controller == null) return;
+        if (controller != null)
+        {
+            RecordAction(controller.LastActiveAction);
+        }
+    }
 
-        string currentAction = controller.LastActiveAction;
+    // 2. 核心新增：处理直说关键词切换模式时的回调
+    public void HandleControlModeSwitched(string newMode)
+    {
+        RecordAction(newMode);
+    }
 
-        if (currentAction.Equals("Rotate", System.StringComparison.OrdinalIgnoreCase))
+    // 统一模式判定与关卡进度更新
+    private void RecordAction(string action)
+    {
+        if (isStepCompleted || string.IsNullOrEmpty(action)) return;
+
+        if (action.Equals("Rotate", System.StringComparison.OrdinalIgnoreCase))
         {
             hasRotated = true;
             Debug.Log("<color=green>[Stage 1-3 Tracker]</color> Rotate recorded. (Progress: " + GetProgressCount() + "/3)");
         }
-        else if (currentAction.Equals("Scale", System.StringComparison.OrdinalIgnoreCase))
+        else if (action.Equals("Scale", System.StringComparison.OrdinalIgnoreCase))
         {
             hasScaled = true;
             Debug.Log("<color=green>[Stage 1-3 Tracker]</color> Scale recorded. (Progress: " + GetProgressCount() + "/3)");
         }
-        else if (currentAction.Equals("Translate", System.StringComparison.OrdinalIgnoreCase) ||
-                 currentAction.Equals("Move", System.StringComparison.OrdinalIgnoreCase))
+        else if (action.Equals("Translate", System.StringComparison.OrdinalIgnoreCase) ||
+                 action.Equals("Move", System.StringComparison.OrdinalIgnoreCase))
         {
             hasMoved = true;
             Debug.Log("<color=green>[Stage 1-3 Tracker]</color> Move recorded. (Progress: " + GetProgressCount() + "/3)");
