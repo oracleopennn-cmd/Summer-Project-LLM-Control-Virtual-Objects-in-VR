@@ -50,13 +50,53 @@ public class Stage2_Manager : MonoBehaviour
 
     // UI 隐藏控制
     private Coroutine hideUICoroutine;
-    private const float UI_AUTO_HIDE_DELAY = 3.0f;
+    [Header("UI Timing Settings")]
+    public float uiAutoHideDelay = 3.0f;
 
     // VR 手柄按键防刷
     private bool wasButtonPressedLastFrame = false;
 
+    // 结构体：保存物体的初始状态以实现类似 Scene Reload 的重置
+    private struct InitialTransformState
+    {
+        public Vector3 position;
+        public Quaternion rotation;
+        public Vector3 localScale;
+        public bool isKinematic;
+    }
+
+    private Dictionary<GameObject, InitialTransformState> initialSelectableStates = new Dictionary<GameObject, InitialTransformState>();
+
+    private void Awake()
+    {
+        // 缓存所有 SelectableObject 的初始 Transform 与物理状态
+#if UNITY_2023_1_OR_NEWER
+        SelectableObject[] allSelectables = FindObjectsByType<SelectableObject>(FindObjectsSortMode.None);
+#else
+        SelectableObject[] allSelectables = FindObjectsOfType<SelectableObject>();
+#endif
+        foreach (var selectable in allSelectables)
+        {
+            if (selectable != null)
+            {
+                InitialTransformState state = new InitialTransformState
+                {
+                    position = selectable.transform.position,
+                    rotation = selectable.transform.rotation,
+                    localScale = selectable.transform.localScale,
+                    isKinematic = selectable.TryGetComponent<Rigidbody>(out var rb) ? rb.isKinematic : true
+                };
+                initialSelectableStates[selectable.gameObject] = state;
+            }
+        }
+    }
+
     private void OnEnable()
     {
+        // 如果开启了全局配置，优先读取全局配置的数值
+        totalTrials = ExperimentConfigManager.GlobalStage2Trials;
+
+        // ... 原有逻辑保持不变
         if (controller == null) controller = FindObjectOfType<LLMSemanticController>();
 
         if (hintText == null && uiCanvas != null)
@@ -172,7 +212,7 @@ public class Stage2_Manager : MonoBehaviour
         {
             StopCoroutine(hideUICoroutine);
         }
-        hideUICoroutine = StartCoroutine(HideUIDelayed(UI_AUTO_HIDE_DELAY));
+        hideUICoroutine = StartCoroutine(HideUIDelayed(uiAutoHideDelay));
     }
 
     private IEnumerator HideUIDelayed(float delay)
@@ -218,6 +258,15 @@ public class Stage2_Manager : MonoBehaviour
             return;
         }
 
+        // 💡 1. 类似 Scene Reload：重置所有 SelectableObject 状态与物理参数
+        ResetAllSelectableObjects();
+
+        // 💡 2. 彻底清理连接状态
+        if (controller != null)
+        {
+            controller.ForceResetBinding();
+        }
+
         HideAllTargets();
 
         int targetIndex = shuffledIndices[currentTrialIndex];
@@ -233,23 +282,55 @@ public class Stage2_Manager : MonoBehaviour
             }
         }
 
-        if (controller != null)
-        {
-            controller.ForceResetBinding();
-        }
-
-        // 读取 SelectableObject 中的 Object Label 名称
         string sourceLabel = GetObjectLabel(sourceObject);
         string targetLabel = GetObjectLabel(currentTargetObject);
 
         UpdateUI($"Stage 2: Simple Docking ({currentTrialIndex + 1}/{totalTrials})\n\n" +
-                 $"Bind <color=yellow>{sourceLabel}</color> and match its position, rotation & scale to <color=cyan>{targetLabel}</color>.");
+                 $"Bind <color=yellow>{sourceLabel}</color> and match its position, rotation & scale to the target.");
 
         trialStartTime = Time.time;
         holdTimer = 0f;
         isTrialActive = true;
 
         Debug.Log($"<color=green>[Stage 2]</color> Trial {currentTrialIndex + 1} started. Target: [{targetLabel}]");
+    }
+
+    /// <summary>
+    /// 将所有 SelectableObject 恢复到场景最初的位置、旋转、缩放与速度
+    /// </summary>
+    private void ResetAllSelectableObjects()
+    {
+        foreach (var kvp in initialSelectableStates)
+        {
+            GameObject obj = kvp.Key;
+            InitialTransformState state = kvp.Value;
+
+            if (obj != null)
+            {
+                // 重置 Transform
+                obj.transform.position = state.position;
+                obj.transform.rotation = state.rotation;
+                obj.transform.localScale = state.localScale;
+
+                // 重置 Rigidbody 物理状态
+                if (obj.TryGetComponent<Rigidbody>(out Rigidbody rb))
+                {
+#if UNITY_6000_0_OR_NEWER
+                    rb.linearVelocity = Vector3.zero;
+#else
+                    rb.velocity = Vector3.zero;
+#endif
+                    rb.angularVelocity = Vector3.zero;
+                    rb.isKinematic = state.isKinematic;
+                }
+
+                // 重置抓取状态
+                if (obj.TryGetComponent<SelectableObject>(out var selectable))
+                {
+                    selectable.isGrabbed = false;
+                }
+            }
+        }
     }
 
     private void CheckDockingCondition()
@@ -312,10 +393,6 @@ public class Stage2_Manager : MonoBehaviour
         this.enabled = false;
     }
 
-    /// <summary>
-    /// 获取物体的显示的 Label 名称。
-    /// 优先从 SelectableObject 组件中提取 objectLabel，若不存在则使用 GameObject 的 name。
-    /// </summary>
     private string GetObjectLabel(GameObject obj)
     {
         if (obj == null) return "None";
@@ -323,7 +400,6 @@ public class Stage2_Manager : MonoBehaviour
         SelectableObject selectable = obj.GetComponent<SelectableObject>();
         if (selectable != null)
         {
-            // 提示：如果你的 SelectableObject 脚本中变量名是首字母大写 (ObjectLabel)，把下一行的 objectLabel 改为 ObjectLabel 即可
             if (!string.IsNullOrEmpty(selectable.objectLabel))
             {
                 return selectable.objectLabel;

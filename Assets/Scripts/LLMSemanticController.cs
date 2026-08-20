@@ -19,7 +19,7 @@ public class BindingData
 {
     public string source;
     public string target;
-    public string action;   // Supports: "Rotate", "Scale", "Translate", "AskUser", "RejectAmbiguous", "PointAndSelect_Rotate", "PointAndSelect_Scale", "PointAndSelect_Translate", "Clear", "Lock", "Unlock", "None"
+    public string action;   // Supports: "Rotate", "Scale", "Translate", "AskUser", "PointAndSelect_AskUser", "PointAndSelect_Rotate", "PointAndSelect_Scale", "PointAndSelect_Translate", "Clear", "Lock", "Unlock", "None"
 }
 
 [Serializable]
@@ -80,6 +80,9 @@ public class LLMSemanticController : MonoBehaviour
     private bool targetHasRigidbody = false;
     private bool originalIsKinematic = false;
 
+    [Header("Scene Reload Global Setting")]
+    public static bool isSceneReloadEnabled = true;
+
     [Header("UI Feedback Settings")]
     public GameObject statusUIParent;
     private TMP_Text statusTextUI;
@@ -87,6 +90,10 @@ public class LLMSemanticController : MonoBehaviour
     [Header("UI Auto-Hide Settings")]
     public float uiAutoHideDelay = 5f;
     private Coroutine autoHideCoroutine;
+
+    [Header("Hand Feedback Settings")]
+    [Tooltip("拖入挂在右手手柄上的 HandFeedbackController 组件")]
+    public HandFeedbackController handFeedback;
 
     [Header("Gemini API Configuration")]
     public string geminiApiKey = "YOUR_GEMINI_API_KEY_HERE";
@@ -101,7 +108,7 @@ public class LLMSemanticController : MonoBehaviour
 
     // Runtime state variables
     public bool isBound = false;
-    public string activeAction = "None"; // Supports: "Rotate", "Scale", "Translate"
+    public string activeAction = "None"; // Supports: "Rotate", "Scale", "Translate", "AskUser"
     public GameObject currentSource;
     public GameObject currentTarget;
 
@@ -131,7 +138,7 @@ public class LLMSemanticController : MonoBehaviour
 
     private bool mustReleaseTriggerFirst = false;
     private float lastSelectTime = 0f;
-    private const float SELECT_COOLDOWN = 0.35f; // 防连击与误触冷却
+    private const float SELECT_COOLDOWN = 0.35f;
 
     // 请求版本锁：防止滞后的 API 返回扰乱当前操作
     private int currentRequestId = 0;
@@ -144,16 +151,27 @@ public class LLMSemanticController : MonoBehaviour
     private const string VISION_SYSTEM_PROMPT =
         "You are a VR vision and semantic parser. Analyze user commands with screenshots to establish interaction bindings.\n" +
         "Extract object names or demonstrative pronouns, strictly returning JSON: {\"source\": \"...\", \"target\": \"...\", \"action\": \"...\"}\n" +
-        "1. If user explicitly says rotate/turn (e.g., 'rotate can to turn cube' or just 'rotate'): action is 'Rotate'.\n" +
-        "2. If user explicitly says scale/resize (e.g., 'rotate can to scale cube' or just 'scale'): action is 'Scale'.\n" +
-        "3. If user says move/translate/position/follow (e.g., 'move this to move that' or just 'move'): action is 'Translate'.\n" +
-        "4. CRITICAL RULE FOR AMBIGUOUS DEMONSTRATIVES: If user uses 'this' or 'that' AND only vaguely says 'control', 'connect', or 'link' WITHOUT specifying the action mode: action MUST BE 'RejectAmbiguous'.\n" +
+        "DEFINITIONS:\n" +
+        "- 'source': The controller/tool object held or manipulated by the user to provide input (THIS/TOOL).\n" +
+        "- 'target': The remote object being controlled or modified (THAT/CONTROLLED OBJECT).\n" +
+        "SYNTAX RULES:\n" +
+        "1. In patterns like 'Move/Rotate/Scale [Target] WITH/USING [Source]' (e.g., 'move cube with can', 'rotate that with this'):\n" +
+        "   - The object after 'with'/'using' MUST BE the 'source'.\n" +
+        "   - The object being manipulated MUST BE the 'target'.\n" +
+        "2. In patterns like 'Use [Source] to move/rotate/scale/control [Target]' (e.g., 'use can to move cube'):\n" +
+        "   - The object after 'use' is 'source'.\n" +
+        "   - The object after 'to' is 'target'.\n" +
+        "3. CRITICAL RULE FOR VAGUE COMMANDS ('CONTROL', 'CONNECT', 'LINK'):\n" +
+        "   - If user says 'control', 'connect', or 'link' with specific object names: action MUST BE 'AskUser'.\n" +
+        "   - If user uses demonstrative pronouns 'this' or 'that' with only 'control'/'connect'/'link' (e.g., 'control this with that'): action MUST BE 'PointAndSelect_AskUser'.\n" +
+        "4. ACTION MAPPING:\n" +
+        "   - Rotate/turn -> 'Rotate'\n" +
+        "   - Scale/resize/size -> 'Scale'\n" +
+        "   - Move/translate/position/follow -> 'Translate'\n" +
         "5. If demonstrative pronouns ('this', 'that') are used WITH a specific verb: use 'PointAndSelect_Rotate', 'PointAndSelect_Scale', or 'PointAndSelect_Translate'.\n" +
-        "6. If user vaguely says 'control', 'connect', or 'link' with SPECIFIC object names: action is 'AskUser'.\n" +
-        "7. CRITICAL AUDIO RULE: If the user says 'disconnect', 'unbind', 'clear', or if the audio sounds phonetically like 'this connect', you MUST return 'Clear' as the action to break the link.\n" +
-        "8. If user explicitly requests to lock/freeze position, rotation or scale: action is 'Lock'.\n" +
-        "9. If user explicitly requests to unlock/unfreeze: action is 'Unlock'. Otherwise 'None'.\n" +
-        "Example output: {\"source\": \"this\", \"target\": \"that\", \"action\": \"RejectAmbiguous\"}";
+        "6. CRITICAL AUDIO RULE: If the user says 'disconnect', 'unbind', 'clear', or if the audio sounds phonetically like 'this connect', return 'Clear'.\n" +
+        "7. If user explicitly requests to lock/freeze: action is 'Lock'. Unfreeze/unlock: action is 'Unlock'. Otherwise 'None'.\n" +
+        "Example output: {\"source\": \"that\", \"target\": \"this\", \"action\": \"PointAndSelect_AskUser\"}";
 
     private void Awake()
     {
@@ -204,6 +222,12 @@ public class LLMSemanticController : MonoBehaviour
 
     private void OnLeftXButtonPressed(InputAction.CallbackContext context)
     {
+        if (!isSceneReloadEnabled)
+        {
+            Debug.Log("<color=yellow>[Scene Reload]</color> Left X Button Reload is disabled.");
+            return;
+        }
+
         Debug.Log("<color=yellow>[Scene Reload]</color> Left X button pressed. Reloading active scene...");
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
@@ -222,6 +246,16 @@ public class LLMSemanticController : MonoBehaviour
         {
             statusTextUI = statusUIParent.GetComponentInChildren<TMP_Text>();
             statusUIParent.SetActive(false);
+        }
+
+        // 自动寻找场景中可能存在的 HandFeedbackController
+        if (handFeedback == null)
+        {
+#if UNITY_2023_1_OR_NEWER
+            handFeedback = FindFirstObjectByType<HandFeedbackController>();
+#else
+            handFeedback = FindObjectOfType<HandFeedbackController>();
+#endif
         }
     }
 
@@ -249,6 +283,20 @@ public class LLMSemanticController : MonoBehaviour
 
     private void Update()
     {
+        // ==========================================
+        // 💡 仅监听右手扳机按下，触发 Listening
+        // ==========================================
+        if (rightTriggerAction != null && rightTriggerAction.WasPressedThisFrame())
+        {
+            if (handFeedback != null)
+            {
+                handFeedback.StartListening();
+            }
+        }
+
+        // ==========================================
+        // 原有的锁定与跟随逻辑保持不变
+        // ==========================================
         if (isLocked && currentTarget != null)
         {
             currentTarget.transform.position = lockedPosition;
@@ -323,7 +371,6 @@ public class LLMSemanticController : MonoBehaviour
         if (currentTarget.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
             targetHasRigidbody = true;
-            originalIsKinematic = rb.isKinematic;
 #if UNITY_6000_0_OR_NEWER
             rb.linearVelocity = Vector3.zero;
 #else
@@ -359,8 +406,6 @@ public class LLMSemanticController : MonoBehaviour
         if (currentTarget.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
             targetHasRigidbody = true;
-            originalIsKinematic = rb.isKinematic;
-
 #if UNITY_6000_0_OR_NEWER
             rb.linearVelocity = Vector3.zero;
 #else
@@ -368,10 +413,6 @@ public class LLMSemanticController : MonoBehaviour
 #endif
             rb.angularVelocity = Vector3.zero;
             rb.isKinematic = true;
-        }
-        else
-        {
-            targetHasRigidbody = false;
         }
 
         isLocked = true;
@@ -387,32 +428,13 @@ public class LLMSemanticController : MonoBehaviour
     {
         if (isLocked)
         {
-            // 1. 恢复刚体原有的物理/运动学状态
-            if (currentTarget != null && targetHasRigidbody && currentTarget.TryGetComponent<Rigidbody>(out Rigidbody rb))
-            {
-                rb.isKinematic = originalIsKinematic;
-
-#if UNITY_6000_0_OR_NEWER
-                rb.linearVelocity = Vector3.zero;
-#else
-                rb.velocity = Vector3.zero;
-#endif
-                rb.angularVelocity = Vector3.zero;
-            }
-
-            targetHasRigidbody = false;
             isLocked = false;
 
-            // 2. 核心：重置控制基准点（Re-baseline）
-            // 忽略 Lock 期间 Source 的所有位移，以【解锁时刻】双方的 Transform 作为新的 0 点
             if (isBound && currentSource != null && currentTarget != null)
             {
-                // 将 Target 被 Lock 时的位置记为新的初始 Target 位置
                 initialTargetPos = currentTarget.transform.position;
-                // 将 Source 此时此刻的位置记为新的初始 Source 位置
                 initialSourcePos = currentSource.transform.position;
 
-                // 旋转与缩放同理
                 initialTargetRot = currentTarget.transform.rotation;
                 initialSourceRot = currentSource.transform.rotation;
 
@@ -424,16 +446,36 @@ public class LLMSemanticController : MonoBehaviour
         }
     }
 
-    public void OnConnectionChanged()
+    /// <summary>
+    /// 核心修复：无条件恢复 Target 物体的原始物理刚体与重力状态
+    /// </summary>
+    private void RestoreTargetPhysics()
     {
-        UnlockTarget();
+        if (currentTarget != null && targetHasRigidbody && currentTarget.TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            rb.isKinematic = originalIsKinematic; // 恢复到绑定前的原始 isKinematic 状态
+#if UNITY_6000_0_OR_NEWER
+            rb.linearVelocity = Vector3.zero;
+#else
+            rb.velocity = Vector3.zero;
+#endif
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        targetHasRigidbody = false;
+        isLocked = false;
     }
 
     public void ForceResetBinding()
     {
-        currentRequestId++; // 废弃所有挂起请求
+        currentRequestId++;
 
-        UnlockTarget();
+        RestoreTargetPhysics();
+
+        if (handFeedback != null)
+        {
+            handFeedback.StopFeedback(false, "");
+        }
 
         isBound = false;
         currentSource = null;
@@ -492,7 +534,6 @@ public class LLMSemanticController : MonoBehaviour
         bool isLeftHolding = leftTriggerAction != null && leftTriggerAction.IsPressed();
         bool isRightHolding = rightTriggerAction != null && rightTriggerAction.IsPressed();
 
-        // 必须物理彻底释放扳机
         if (mustReleaseTriggerFirst)
         {
             if (!isLeftHolding && !isRightHolding)
@@ -502,7 +543,6 @@ public class LLMSemanticController : MonoBehaviour
             return;
         }
 
-        // 防连击冷却校验
         if (Time.time - lastSelectTime < SELECT_COOLDOWN) return;
 
         bool isLeftPressed = leftTriggerAction != null && leftTriggerAction.WasPressedThisFrame();
@@ -515,8 +555,8 @@ public class LLMSemanticController : MonoBehaviour
 
             if (hitGameObject != null)
             {
-                SelectableObject selectedObj = hitGameObject.GetComponent<SelectableObject>();
-                if (selectedObj == null) selectedObj = hitGameObject.GetComponentInParent<SelectableObject>();
+                SelectableObject selectedObj = hitGameObject.GetComponentInParent<SelectableObject>();
+                if (selectedObj == null) selectedObj = hitGameObject.GetComponentInChildren<SelectableObject>();
 
                 if (selectedObj == null)
                 {
@@ -546,12 +586,24 @@ public class LLMSemanticController : MonoBehaviour
                     }
 
                     currentTarget = validTarget;
+
+                    if (activeAction.Equals("AskUser", StringComparison.OrdinalIgnoreCase))
+                    {
+                        pendingSource = currentSource;
+                        pendingTarget = currentTarget;
+                        currentState = ControllerState.AwaitingControlMode;
+                        LastBindingMethod = BIND_METHOD_POINT;
+
+                        SetStatusUI($"<color=#FFFF00>[Action Required]</color>\nObjects selected:\n<color=yellow>{pendingSource.name}</color> -> <color=#FF8C00>{pendingTarget.name}</color>\nSay <color=#00FF00>'Rotate'</color>, <color=#00FF00>'Scale'</color> or <color=#00FF00>'Move'</color>", true, autoHide: false);
+                        return;
+                    }
+
                     ConfirmBinding(currentSource, currentTarget, activeAction);
                 }
             }
             else
             {
-                SetStatusUI("<color=orange>[Raycast missed]</color>\nPlease aim at a valid object and press trigger.", true, autoHide: true);
+                SetStatusUI("<color=orange>[Raycast Missed]</color>\nPlease aim at a valid object and press trigger.", true, autoHide: true);
                 mustReleaseTriggerFirst = true;
             }
         }
@@ -564,13 +616,13 @@ public class LLMSemanticController : MonoBehaviour
         if (interactor.hasSelection && interactor.interactablesSelected.Count > 0)
         {
             var interactable = interactor.interactablesSelected[0];
-            if (interactable != null) return interactable.transform.gameObject;
+            if (interactable is Component comp) return comp.gameObject;
         }
 
         if (interactor.hasHover && interactor.interactablesHovered.Count > 0)
         {
             var interactable = interactor.interactablesHovered[0];
-            if (interactable != null) return interactable.transform.gameObject;
+            if (interactable is Component comp) return comp.gameObject;
         }
 
         if (interactor.TryGetCurrent3DRaycastHit(out RaycastHit xriHit))
@@ -581,7 +633,7 @@ public class LLMSemanticController : MonoBehaviour
         Transform rayOrigin = interactor.rayOriginTransform != null ? interactor.rayOriginTransform : interactor.transform;
         Ray fallbackRay = new Ray(rayOrigin.position, rayOrigin.forward);
 
-        if (Physics.Raycast(fallbackRay, out RaycastHit fallbackHit, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        if (Physics.Raycast(fallbackRay, out RaycastHit fallbackHit, 100f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
             if (fallbackHit.collider != null) return fallbackHit.collider.gameObject;
         }
@@ -591,7 +643,8 @@ public class LLMSemanticController : MonoBehaviour
 
     public string ConfirmBinding(GameObject sourceObj, GameObject targetObj, string actionType)
     {
-        UnlockTarget();
+        // 绑定新物体前，先恢复旧物体的物理状态
+        RestoreTargetPhysics();
 
         currentSource = sourceObj;
         currentTarget = targetObj;
@@ -625,13 +678,19 @@ public class LLMSemanticController : MonoBehaviour
 
         isBound = true;
 
-        string bindMethod = (currentState == ControllerState.SelectingTarget ||
+        string bindMethod = (LastBindingMethod == BIND_METHOD_POINT ||
+                             currentState == ControllerState.SelectingTarget ||
                              currentState == ControllerState.SelectingSource) ? BIND_METHOD_POINT : BIND_METHOD_NAME;
 
         LastBindingMethod = bindMethod;
         currentState = ControllerState.Idle;
 
         SetStatusUI($"<color=#00FF00>[Bound ({activeAction})] [{bindMethod}]!</color>\n<color=yellow>{currentSource.name}</color> -> <color=#FF8C00>{currentTarget.name}</color>", true, autoHide: true);
+
+        if (handFeedback != null)
+        {
+            handFeedback.StopFeedback(true, "Bound!");
+        }
 
         OnBindingCreated?.Invoke(currentSource.name, currentTarget.name);
 
@@ -653,22 +712,6 @@ public class LLMSemanticController : MonoBehaviour
             return "Unlock";
         }
 
-        if (isBound && currentSource != null && currentTarget != null)
-        {
-            if (textLower.Contains("rotate") || textLower.Contains("turn") || textLower.Contains("旋转"))
-            {
-                if (SwitchControlMode("Rotate")) return "Rotate";
-            }
-            else if (textLower.Contains("scale") || textLower.Contains("size") || textLower.Contains("resize") || textLower.Contains("缩放") || textLower.Contains("大小"))
-            {
-                if (SwitchControlMode("Scale")) return "Scale";
-            }
-            else if (textLower.Contains("move") || textLower.Contains("translate") || textLower.Contains("position") || textLower.Contains("移动") || textLower.Contains("平移"))
-            {
-                if (SwitchControlMode("Translate")) return "Translate";
-            }
-        }
-
         if (currentState == ControllerState.AwaitingControlMode)
         {
             if (textLower.Contains("rotate") || textLower.Contains("turn") || textLower.Contains("旋转"))
@@ -685,6 +728,22 @@ public class LLMSemanticController : MonoBehaviour
             }
         }
 
+        if (isBound && currentSource != null && currentTarget != null)
+        {
+            if (textLower == "rotate" || textLower == "turn" || textLower == "旋转")
+            {
+                if (SwitchControlMode("Rotate")) return "Rotate";
+            }
+            else if (textLower == "scale" || textLower == "size" || textLower == "resize" || textLower == "缩放")
+            {
+                if (SwitchControlMode("Scale")) return "Scale";
+            }
+            else if (textLower == "move" || textLower == "translate" || textLower == "position" || textLower == "移动")
+            {
+                if (SwitchControlMode("Translate")) return "Translate";
+            }
+        }
+
         if (!ValidateApiKey()) return BIND_METHOD_NONE;
 
         byte[] imageBytes = ScreenCaptureUtility.CaptureCameraView(mainVRCamera);
@@ -695,7 +754,7 @@ public class LLMSemanticController : MonoBehaviour
         }
         string base64Image = Convert.ToBase64String(imageBytes);
 
-        currentRequestId++; // 自增版本号
+        currentRequestId++;
 
         string fullPromptEscaped = EscapeJsonString(VISION_SYSTEM_PROMPT + "\n\nUser Instruction: " + userInput);
         string jsonPayload = $"{{\"contents\":[{{\"parts\":[{{\"text\":\"{fullPromptEscaped}\"}},{{\"inlineData\":{{\"mimeType\":\"image/jpeg\",\"data\":\"{base64Image}\"}}}}]}}]}}";
@@ -716,7 +775,7 @@ public class LLMSemanticController : MonoBehaviour
         }
         string base64Image = Convert.ToBase64String(imageBytes);
 
-        currentRequestId++; // 自增版本号
+        currentRequestId++;
 
         string promptEscaped = EscapeJsonString(VISION_SYSTEM_PROMPT);
         string jsonPayload = $"{{\"contents\":[{{\"parts\":[{{\"text\":\"{promptEscaped}\"}},{{\"inlineData\":{{\"mimeType\":\"image/jpeg\",\"data\":\"{base64Image}\"}}}},{{\"inlineData\":{{\"mimeType\":\"{audioMime}\",\"data\":\"{base64Audio}\"}}}}]}}]}}";
@@ -726,6 +785,12 @@ public class LLMSemanticController : MonoBehaviour
 
     private IEnumerator SendGeminiApiRequest(string jsonPayload, string requestTag, int requestId)
     {
+        // 💡 开启手柄上的 Processing 动效
+        if (handFeedback != null)
+        {
+            handFeedback.StartProcessing();
+        }
+
         string cleanModelName = modelName.Trim();
         if (!cleanModelName.StartsWith("models/"))
         {
@@ -744,10 +809,10 @@ public class LLMSemanticController : MonoBehaviour
 
             yield return request.SendWebRequest();
 
-            // 如果当前返回的响应已经过时（用户发起了新指令或手动模式），立即作废丢弃
             if (requestId != currentRequestId)
             {
                 Debug.Log("<color=yellow>[LLM Controller]</color> Discarding stale Gemini response.");
+                if (handFeedback != null) handFeedback.StopFeedback(false, "Stale");
                 yield break;
             }
 
@@ -759,11 +824,23 @@ public class LLMSemanticController : MonoBehaviour
                 {
                     ApplyDynamicVisionBinding(jsonStringFromGemini);
                 }
+
+                // 💡 成功返回：停止反馈并提示 Done
+                if (handFeedback != null)
+                {
+                    handFeedback.StopFeedback(true, "Done!");
+                }
             }
             else
             {
                 SetStatusUI($"<color=red>[Request Failed]</color> ({request.responseCode})", true, autoHide: true);
                 Debug.LogError($"[Gemini Controller] [{requestTag}] Request failed! Raw response: {request.downloadHandler.text}");
+
+                // 💡 失败返回：停止反馈并提示 Failed
+                if (handFeedback != null)
+                {
+                    handFeedback.StopFeedback(false, "Failed");
+                }
             }
         }
     }
@@ -816,30 +893,11 @@ public class LLMSemanticController : MonoBehaviour
 
         string rawTextLower = jsonContent.ToLower().Trim();
 
-        // 1. 优先处理纯文本模式切换
-        if (isBound && currentSource != null && currentTarget != null)
-        {
-            if (rawTextLower.Contains("rotate") || rawTextLower.Contains("turn") || rawTextLower.Contains("旋转"))
-            {
-                SwitchControlMode("Rotate");
-                return "Rotate";
-            }
-            if (rawTextLower.Contains("scale") || rawTextLower.Contains("size") || rawTextLower.Contains("resize") || rawTextLower.Contains("缩放"))
-            {
-                SwitchControlMode("Scale");
-                return "Scale";
-            }
-            if (rawTextLower.Contains("translate") || rawTextLower.Contains("move") || rawTextLower.Contains("position") || rawTextLower.Contains("移动"))
-            {
-                SwitchControlMode("Translate");
-                return "Translate";
-            }
-        }
-
-        // 2. 优先处理纯文本断开
+        // 1. 优先处理纯文本断开
         if (rawTextLower.Contains("clear") || rawTextLower.Contains("disconnect") || rawTextLower.Contains("unbind") || rawTextLower.Contains("this connect"))
         {
-            UnlockTarget();
+            RestoreTargetPhysics();
+
             isBound = false;
             currentSource = null;
             currentTarget = null;
@@ -849,6 +907,12 @@ public class LLMSemanticController : MonoBehaviour
             currentState = ControllerState.Idle;
 
             SetStatusUI("<color=yellow>[Binding Cleared]</color> Disconnected!", true, autoHide: true);
+
+            if (handFeedback != null)
+            {
+                handFeedback.StopFeedback(true, "Disconnected");
+            }
+
             OnBindingCleared?.Invoke();
             return "Clear";
         }
@@ -861,17 +925,19 @@ public class LLMSemanticController : MonoBehaviour
             if (data.action.Equals("Lock", StringComparison.OrdinalIgnoreCase))
             {
                 LockTarget();
+                if (handFeedback != null) handFeedback.StopFeedback(true, "Locked");
                 return "Lock";
             }
             if (data.action.Equals("Unlock", StringComparison.OrdinalIgnoreCase))
             {
                 UnlockTarget();
+                if (handFeedback != null) handFeedback.StopFeedback(true, "Unlocked");
                 return "Unlock";
             }
 
             if (data.action.Equals("Clear", StringComparison.OrdinalIgnoreCase))
             {
-                UnlockTarget();
+                RestoreTargetPhysics();
 
                 isBound = false;
                 currentSource = null;
@@ -883,12 +949,25 @@ public class LLMSemanticController : MonoBehaviour
 
                 SetStatusUI("<color=yellow>[Binding Cleared]</color> Disconnected!", true, autoHide: true);
 
+                if (handFeedback != null)
+                {
+                    handFeedback.StopFeedback(true, "Disconnected");
+                }
+
                 OnBindingCleared?.Invoke();
                 return "Clear";
             }
 
-            // 若 JSON 中包含模式且当前已绑定，切换模式
-            if (isBound && currentSource != null && currentTarget != null)
+            // 判断是否是真正的具体具名物体（排除 this, that, none 等占位符）
+            string srcKey = string.IsNullOrEmpty(data.source) ? "" : data.source.ToLower().Trim();
+            string tgtKey = string.IsNullOrEmpty(data.target) ? "" : data.target.ToLower().Trim();
+
+            bool isSourcePronounOrEmpty = string.IsNullOrEmpty(srcKey) || srcKey == "this" || srcKey == "that" || srcKey == "none";
+            bool isTargetPronounOrEmpty = string.IsNullOrEmpty(tgtKey) || tgtKey == "this" || tgtKey == "that" || tgtKey == "none";
+            bool hasRealNamedObjects = (!isSourcePronounOrEmpty || !isTargetPronounOrEmpty) && (srcKey != "this" && srcKey != "that" && tgtKey != "this" && tgtKey != "that");
+
+            // 若当前已建立连接，且没有指定全新的具名实体物体，则直接切换当前连接模式
+            if (isBound && currentSource != null && currentTarget != null && !hasRealNamedObjects)
             {
                 string rawAction = (data.action ?? "").ToLower();
                 string targetMode = null;
@@ -909,6 +988,7 @@ public class LLMSemanticController : MonoBehaviour
                 if (!string.IsNullOrEmpty(targetMode))
                 {
                     SwitchControlMode(targetMode);
+                    if (handFeedback != null) handFeedback.StopFeedback(true, $"Mode: {targetMode}");
                     return targetMode;
                 }
             }
@@ -928,14 +1008,17 @@ public class LLMSemanticController : MonoBehaviour
                     true,
                     autoHide: true
                 );
+
+                if (handFeedback != null) handFeedback.StopFeedback(false, "Ambiguous");
                 return "RejectAmbiguous";
             }
 
+            // 指向性代词 PointAndSelect 分支
             if (data.action.StartsWith("PointAndSelect", StringComparison.OrdinalIgnoreCase) ||
                 data.source.Equals("this", StringComparison.OrdinalIgnoreCase) ||
                 data.target.Equals("that", StringComparison.OrdinalIgnoreCase))
             {
-                UnlockTarget();
+                RestoreTargetPhysics();
 
                 isBound = false;
                 currentSource = null;
@@ -953,6 +1036,10 @@ public class LLMSemanticController : MonoBehaviour
                 {
                     activeAction = "Scale";
                 }
+                else if (data.action.Equals("AskUser", StringComparison.OrdinalIgnoreCase))
+                {
+                    activeAction = "AskUser";
+                }
                 else
                 {
                     activeAction = "Rotate";
@@ -962,7 +1049,8 @@ public class LLMSemanticController : MonoBehaviour
                 currentState = ControllerState.SelectingSource;
                 mustReleaseTriggerFirst = true;
 
-                SetStatusUI($"<color=#00FFFF>[Step 1/2]</color> Manual Selection ({activeAction})\nPoint at the <color=yellow>Source (THIS)</color> object and press trigger.", true, autoHide: false);
+                SetStatusUI($"<color=#00FFFF>[Step 1/2]</color> Manual Selection\nPoint at the <color=yellow>Source (THIS)</color> object and press trigger.", true, autoHide: false);
+                if (handFeedback != null) handFeedback.StopFeedback(true, "Select Source");
                 return BIND_METHOD_POINT;
             }
 
@@ -974,9 +1062,6 @@ public class LLMSemanticController : MonoBehaviour
 
             GameObject foundSource = null;
             GameObject foundTarget = null;
-
-            string srcKey = string.IsNullOrEmpty(data.source) ? "" : data.source.ToLower().Trim();
-            string tgtKey = string.IsNullOrEmpty(data.target) ? "" : data.target.ToLower().Trim();
 
             foreach (var obj in sceneObjects)
             {
@@ -999,19 +1084,27 @@ public class LLMSemanticController : MonoBehaviour
             if (foundSource == null || foundTarget == null)
             {
                 SetStatusUI($"<color=orange>[Match Failed]</color>\nSource: '{data.source}', Target: '{data.target}'", true, autoHide: true);
+                if (handFeedback != null) handFeedback.StopFeedback(false, "No Match");
                 return "MatchFailed";
             }
 
+            // 具名物体的 AskUser
             if (data.action.Equals("AskUser", StringComparison.OrdinalIgnoreCase))
             {
+                RestoreTargetPhysics();
+                isBound = false;
+
                 pendingSource = foundSource;
                 pendingTarget = foundTarget;
                 currentState = ControllerState.AwaitingControlMode;
+                LastBindingMethod = BIND_METHOD_NAME;
 
                 SetStatusUI($"<color=#FFFF00>[Action Required]</color>\nHow do you want to control?\n<color=yellow>{foundSource.name}</color> -> <color=#FF8C00>{foundTarget.name}</color>\nSay <color=#00FF00>'Rotate'</color>, <color=#00FF00>'Scale'</color> or <color=#00FF00>'Move'</color>", true, autoHide: false);
+                if (handFeedback != null) handFeedback.StopFeedback(true, "Say Action");
                 return "AskUser";
             }
 
+            // 完整句子指令：直接确认绑定
             if (data.action == "Rotate" || data.action == "Scale" || data.action == "Translate" || data.action == "Move")
             {
                 return ConfirmBinding(foundSource, foundTarget, data.action);
@@ -1019,8 +1112,32 @@ public class LLMSemanticController : MonoBehaviour
         }
         catch (Exception e)
         {
+            // 纯文本兜底
+            if (isBound && currentSource != null && currentTarget != null)
+            {
+                if (rawTextLower.Contains("rotate") || rawTextLower.Contains("turn"))
+                {
+                    SwitchControlMode("Rotate");
+                    if (handFeedback != null) handFeedback.StopFeedback(true, "Rotate");
+                    return "Rotate";
+                }
+                if (rawTextLower.Contains("scale") || rawTextLower.Contains("size") || rawTextLower.Contains("resize"))
+                {
+                    SwitchControlMode("Scale");
+                    if (handFeedback != null) handFeedback.StopFeedback(true, "Scale");
+                    return "Scale";
+                }
+                if (rawTextLower.Contains("translate") || rawTextLower.Contains("move") || rawTextLower.Contains("position"))
+                {
+                    SwitchControlMode("Translate");
+                    if (handFeedback != null) handFeedback.StopFeedback(true, "Translate");
+                    return "Translate";
+                }
+            }
+
             SetStatusUI("<color=red>[Error]</color> JSON Deserialization Failed", true, autoHide: true);
             Debug.LogError($"[Gemini Controller] Deserialization error: {e.Message}\nRaw text was: {jsonContent}");
+            if (handFeedback != null) handFeedback.StopFeedback(false, "Parse Error");
             return "Error";
         }
 

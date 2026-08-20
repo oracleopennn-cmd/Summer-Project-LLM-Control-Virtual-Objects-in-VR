@@ -48,6 +48,10 @@ public class Stage3_Manager : MonoBehaviour
 
     private void OnEnable()
     {
+        // 如果开启了全局配置，优先读取全局配置的数值
+        totalTrials = ExperimentConfigManager.GlobalStage2Trials;
+
+        // ... 原有逻辑保持不变
         if (controller == null)
         {
 #if UNITY_2023_1_OR_NEWER

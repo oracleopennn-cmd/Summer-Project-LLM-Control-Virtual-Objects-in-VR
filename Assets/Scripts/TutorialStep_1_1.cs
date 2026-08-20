@@ -107,8 +107,8 @@ public class TutorialStep_1_1 : MonoBehaviour
 
             // 提示用户下一步执行 Lock 锁定操作
             UpdateDirectiveText(
-                "✅ Bound successfully with object names!\n\n" +
-                "Stage 1-1 (Task 2/3):\nNow try locking the object.\nHold Trigger and say:\n\"Lock\""
+                "✅ Bound successfully with object names!\nYou can grab the can up to check how the connection works.\n" +
+                "When you are ready (Task 2/3):\nNow try locking the object.\nHold Trigger and say:\n\"Lock\""
             );
         }
     }
