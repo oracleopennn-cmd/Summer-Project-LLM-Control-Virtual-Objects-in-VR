@@ -189,11 +189,13 @@ public class LLMSemanticController : MonoBehaviour
         );
         rightTriggerAction.AddBinding("<XRController>{RightHand}/activate");
 
+        // 👇 修改这里：把 primaryButton 改为左摇杆按下
         leftXButtonAction = new InputAction(
-            name: "LeftXButton",
+            name: "LeftThumbstickClick",
             type: InputActionType.Button,
-            binding: "<XRController>{LeftHand}/primaryButton"
+            binding: "<XRController>{LeftHand}/thumbstickClicked"
         );
+        leftXButtonAction.AddBinding("<XRController>{LeftHand}/primary2DAxisClick");
     }
 
     private void OnEnable()

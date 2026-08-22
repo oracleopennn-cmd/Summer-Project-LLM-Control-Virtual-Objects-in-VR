@@ -27,9 +27,12 @@ public class Stage3_Manager : MonoBehaviour
     [Tooltip("打散后实体积木缩小的目标比例（玩法设计：强制玩家放大）")]
     public float scatteredBlockScale = 0.1f;
 
-    [Header("Trial & Configuration")]
+    [Header("Trial & Tolerances")]
     [Tooltip("Stage 3 需要完成几轮组装（可自定义 Trial 数量）")]
     public int totalTrials = 3;
+    public float positionTolerance = 0.08f; // 💡 新增：位置误差范围
+    public float rotationTolerance = 15.0f; // 💡 新增：旋转误差范围
+    public float scaleTolerance = 0.15f;    // 💡 新增：缩放误差范围
 
     [Header("Runtime Status")]
     public int currentTrialIndex = 0;
@@ -48,10 +51,9 @@ public class Stage3_Manager : MonoBehaviour
 
     private void OnEnable()
     {
-        // 如果开启了全局配置，优先读取全局配置的数值
-        totalTrials = ExperimentConfigManager.GlobalStage2Trials;
+        // 💡 优先读取全局配置的 Stage 3 轮数
+        totalTrials = ExperimentConfigManager.GlobalStage3Trials;
 
-        // ... 原有逻辑保持不变
         if (controller == null)
         {
 #if UNITY_2023_1_OR_NEWER
@@ -253,6 +255,13 @@ public class Stage3_Manager : MonoBehaviour
 
             ghostChild.gameObject.SetActive(true);
 
+            // 💡 如果你的 FlexibleTargetSlot 支持动态应用容差，可以在这里赋值
+            // if (ghostChild.TryGetComponent<FlexibleTargetSlot>(out var slot)) {
+            //     slot.positionTolerance = positionTolerance;
+            //     slot.rotationTolerance = rotationTolerance;
+            //     slot.scaleTolerance = scaleTolerance;
+            // }
+
             if (ghostChild.TryGetComponent<Collider>(out Collider col))
             {
                 col.enabled = false;
@@ -288,7 +297,7 @@ public class Stage3_Manager : MonoBehaviour
 
     private void ScaleDownBlocksAndEnablePhysics()
     {
-        // 💡 玩法机制：仅仅将实体积木强制缩小，迫使玩家使用 Scale 功能复原它们！
+        // 💡 玩法机制：仅仅将实体积木统一缩小，迫使玩家使用 Scale 功能复原它们！
         for (int i = 0; i < solidBlockContainer.childCount; i++)
         {
             Transform child = solidBlockContainer.GetChild(i);

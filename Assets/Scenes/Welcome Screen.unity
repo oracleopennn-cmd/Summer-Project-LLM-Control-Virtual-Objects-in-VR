@@ -3485,7 +3485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9805b40d0c8f545ae6a720ec9944e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
-  sceneAsset: {fileID: 102900000, guid: 5dc649e2fd5290c469dcbd11f50e8ea4, type: 3}
+  sceneAsset: {fileID: 102900000, guid: 0e23b99f8bb470e44a83d56c2c4dee58, type: 3}
   targetScenePath: Assets/Scenes/Traditional UI Control/Stage 3.unity
 --- !u!114 &489429343
 MonoBehaviour:
@@ -3499,7 +3499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9805b40d0c8f545ae6a720ec9944e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
-  sceneAsset: {fileID: 102900000, guid: fd4f1cd7908bc984b8a31bf53040d58b, type: 3}
+  sceneAsset: {fileID: 102900000, guid: c4e7f58b7dfa2394389c73f38ebdd954, type: 3}
   targetScenePath: Assets/Scenes/Traditional UI Control/Stage 2.unity
 --- !u!114 &489429344
 MonoBehaviour:
@@ -3543,8 +3543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExperimentConfigManager
   stage2TrialsDropdown: {fileID: 632607742}
   stage3TrialsDropdown: {fileID: 255898195}
-  reservedSlot1Dropdown: {fileID: 0}
-  reservedSlot2Dropdown: {fileID: 0}
+  stage2TrialsDropdownT: {fileID: 322262659}
+  stage3TrialsDropdownT: {fileID: 1460418348}
   sceneReloadDropdown: {fileID: 1356322253}
 --- !u!1 &495120063
 GameObject:

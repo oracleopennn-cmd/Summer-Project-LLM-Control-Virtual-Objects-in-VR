@@ -3180,9 +3180,9 @@ MonoBehaviour:
   - {fileID: 351053517}
   - {fileID: 1433021286}
   totalTrials: 3
-  positionTolerance: 0.3
-  rotationTolerance: 45
-  scaleTolerance: 0.1
+  positionTolerance: 0.2
+  rotationTolerance: 30
+  scaleTolerance: 0.2
   currentTrialIndex: 0
   currentTargetObject: {fileID: 0}
   usedTargetObjects: []
@@ -3711,58 +3711,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   objectLabel: Bottle
   isGrabbed: 0
---- !u!1 &1370833805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 657184243640684908, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
-  m_PrefabInstance: {fileID: 1705579997}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1370833811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1370833805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8d337e8bc7ac4498e0df29e7b8bd5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnButtonPress
-  action:
-    m_Name: Action
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 72e12d3e-d40e-4da3-ba38-9bc63ad8a7b5
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: bb87aa80-91b5-4c2b-901d-66a1a1bb97c1
-      m_Path: <XRController>{LeftHand}/primaryButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 0
-    m_Flags: 0
-  OnPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1279166558}
-        m_TargetAssemblyTypeName: SceneReloader, Assembly-CSharp
-        m_MethodName: ReloadCurrentScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnRelease:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &1405288209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4051,6 +3999,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BindingVisualizer
   semanticController: {fileID: 1416489528}
+  traditionalUIController: {fileID: 0}
+  lineWidth: 0.015
+  moveColor: {r: 0, g: 1, b: 0.5, a: 0.8}
+  rotateColor: {r: 0, g: 0.8, b: 1, a: 0.8}
+  scaleColor: {r: 1, g: 0.8, b: 0, a: 0.8}
+  lockedColor: {r: 1, g: 0.2, b: 0.2, a: 0.8}
 --- !u!120 &1416489531
 LineRenderer:
   serializedVersion: 3
@@ -4396,9 +4350,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2218496723442559054, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1705580004}
-    - targetCorrespondingSourceObject: {fileID: 657184243640684908, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1370833811}
   m_SourcePrefab: {fileID: 100100000, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
 --- !u!4 &1705579998 stripped
 Transform:
