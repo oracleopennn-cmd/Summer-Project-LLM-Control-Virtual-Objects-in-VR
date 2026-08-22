@@ -1,64 +1,52 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
 
 public class ExperimentConfigManager : MonoBehaviour
 {
-    [Header("Active Stage Dropdowns")]
-    [Tooltip("Stage 2 Trials ÏÂÀ­Ñ¡µ¥ (Ñ¡Ïî 1, 2, 3...)")]
+    [Header("Active Stage Dropdowns (LLM / Voice)")]
+    [Tooltip("Stage 2 Trials ä¸‹æ‹‰é€‰å• (é€‰é¡¹ 1, 2, 3...)")]
     public TMP_Dropdown stage2TrialsDropdown;
 
-    [Tooltip("Stage 3 Trials ÏÂÀ­Ñ¡µ¥ (Ñ¡Ïî 1, 2, 3...)")]
+    [Tooltip("Stage 3 Trials ä¸‹æ‹‰é€‰å• (é€‰é¡¹ 1, 2, 3...)")]
     public TMP_Dropdown stage3TrialsDropdown;
 
-    [Header("Reserved Slot Dropdowns (±¸ÓÃ²ÛÎ»)")]
-    [Tooltip("±¸ÓÃ²ÛÎ» 1 ÏÂÀ­Ñ¡µ¥")]
-    public TMP_Dropdown reservedSlot1Dropdown;
+    [Header("Traditional UI Stage Dropdowns")]
+    [Tooltip("Traditional UI Stage 2 Trials ä¸‹æ‹‰é€‰å•")]
+    public TMP_Dropdown stage2TrialsDropdownT;
 
-    [Tooltip("±¸ÓÃ²ÛÎ» 2 ÏÂÀ­Ñ¡µ¥")]
-    public TMP_Dropdown reservedSlot2Dropdown;
+    [Tooltip("Traditional UI Stage 3 Trials ä¸‹æ‹‰é€‰å•")]
+    public TMP_Dropdown stage3TrialsDropdownT;
 
     [Header("Feature Toggle Dropdowns")]
-    [Tooltip("×óÊÖ X ¼üÖØÔØ³¡¾°¿ª¹Ø (Ñ¡Ïî 0: Enabled, Ñ¡Ïî 1: Disabled)")]
+    [Tooltip("å·¦æ‰‹ X é”®é‡è½½åœºæ™¯å¼€å…³ (é€‰é¡¹ 0: Enabled, é€‰é¡¹ 1: Disabled)")]
     public TMP_Dropdown sceneReloadDropdown;
 
-    // È«¾Ö¾²Ì¬±äÁ¿£¬¿ç³¡¾°Ö±½Ó¶ÁÈ¡
+    // å…¨å±€é™æ€å˜é‡ï¼Œè·¨åœºæ™¯ç›´æŽ¥è¯»å–
     public static int GlobalStage2Trials = 3;
     public static int GlobalStage3Trials = 3;
-    public static int GlobalReservedSlot1 = 3;
-    public static int GlobalReservedSlot2 = 3;
+    public static int GlobalStage2TrialsT = 3; // Traditional UI Stage 2
+    public static int GlobalStage3TrialsT = 3; // Traditional UI Stage 3
 
     private void Awake()
     {
-        // °ó¶¨¸÷¸ö Dropdown µÄ¸ü¸Ä¼àÌý
         if (stage2TrialsDropdown != null)
-        {
             stage2TrialsDropdown.onValueChanged.AddListener(SetStage2TrialsFromDropdown);
-        }
 
         if (stage3TrialsDropdown != null)
-        {
             stage3TrialsDropdown.onValueChanged.AddListener(SetStage3TrialsFromDropdown);
-        }
 
-        if (reservedSlot1Dropdown != null)
-        {
-            reservedSlot1Dropdown.onValueChanged.AddListener(SetReservedSlot1FromDropdown);
-        }
+        if (stage2TrialsDropdownT != null)
+            stage2TrialsDropdownT.onValueChanged.AddListener(SetStage2TrialsTFromDropdown);
 
-        if (reservedSlot2Dropdown != null)
-        {
-            reservedSlot2Dropdown.onValueChanged.AddListener(SetReservedSlot2FromDropdown);
-        }
+        if (stage3TrialsDropdownT != null)
+            stage3TrialsDropdownT.onValueChanged.AddListener(SetStage3TrialsTFromDropdown);
 
         if (sceneReloadDropdown != null)
-        {
             sceneReloadDropdown.onValueChanged.AddListener(SetSceneReloadFromDropdown);
-        }
     }
 
     public void SetStage2TrialsFromDropdown(int index)
     {
-        // Ñ¡ÏîË÷Òý 0 -> 1 ÂÖ, 1 -> 2 ÂÖ, 2 -> 3 ÂÖ...
         GlobalStage2Trials = index + 1;
         Debug.Log($"<color=cyan>[Config]</color> Stage 2 Trials set to: {GlobalStage2Trials}");
     }
@@ -69,21 +57,20 @@ public class ExperimentConfigManager : MonoBehaviour
         Debug.Log($"<color=cyan>[Config]</color> Stage 3 Trials set to: {GlobalStage3Trials}");
     }
 
-    public void SetReservedSlot1FromDropdown(int index)
+    public void SetStage2TrialsTFromDropdown(int index)
     {
-        GlobalReservedSlot1 = index + 1;
-        Debug.Log($"<color=cyan>[Config]</color> Reserved Slot 1 set to: {GlobalReservedSlot1}");
+        GlobalStage2TrialsT = index + 1;
+        Debug.Log($"<color=cyan>[Config]</color> Traditional Stage 2 Trials set to: {GlobalStage2TrialsT}");
     }
 
-    public void SetReservedSlot2FromDropdown(int index)
+    public void SetStage3TrialsTFromDropdown(int index)
     {
-        GlobalReservedSlot2 = index + 1;
-        Debug.Log($"<color=cyan>[Config]</color> Reserved Slot 2 set to: {GlobalReservedSlot2}");
+        GlobalStage3TrialsT = index + 1;
+        Debug.Log($"<color=cyan>[Config]</color> Traditional Stage 3 Trials set to: {GlobalStage3TrialsT}");
     }
 
     public void SetSceneReloadFromDropdown(int index)
     {
-        // Ñ¡Ïî 0: Enabled (true), Ñ¡Ïî 1: Disabled (false)
         LLMSemanticController.isSceneReloadEnabled = (index == 0);
         Debug.Log($"<color=cyan>[Config]</color> Scene Reload Feature Enabled: {LLMSemanticController.isSceneReloadEnabled}");
     }

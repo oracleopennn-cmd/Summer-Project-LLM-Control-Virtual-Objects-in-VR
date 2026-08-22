@@ -1,18 +1,17 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class BindingVisualizer : MonoBehaviour
+public class BindingVisualizer_T : MonoBehaviour
 {
-    [Header("Controller References (支持二选一或自动查找)")]
-    public LLMSemanticController semanticController;
+    [Header("Controller Reference (留空则自动查找)")]
     public TraditionalUIController traditionalUIController;
 
     [Header("Line Visual Settings")]
     public float lineWidth = 0.015f; // 1.5 cm
-    public Color moveColor = new Color(0f, 1f, 0.5f, 0.8f);    // 移动连线色 (青绿)
-    public Color rotateColor = new Color(0f, 0.8f, 1f, 0.8f);  // 旋转连线色 (亮蓝)
-    public Color scaleColor = new Color(1f, 0.8f, 0f, 0.8f);   // 缩放连线色 (橙黄)
-    public Color lockedColor = new Color(1f, 0.2f, 0.2f, 0.8f);// 锁定连线色 (红色)
+    public Color moveColor = new Color(0f, 1f, 0.5f, 0.9f);    // 移动/位移：青绿色
+    public Color rotateColor = new Color(0f, 0.8f, 1f, 0.9f);  // 旋转：亮蓝色
+    public Color scaleColor = new Color(1f, 0.8f, 0f, 0.9f);   // 缩放：橙黄色
+    public Color lockedColor = new Color(1f, 0.2f, 0.2f, 0.9f);// 锁定：红色
 
     private LineRenderer lineRenderer;
 
@@ -20,33 +19,44 @@ public class BindingVisualizer : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
+        lineRenderer.useWorldSpace = true; // 启用世界坐标，防止 VR 头显双目渲染与手柄位移错位
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
         lineRenderer.enabled = false;
 
-        // 自动查找引用
-        if (semanticController == null)
+        // 材质安全检查，确保在 Quest VR 头显中正常着色
+        if (lineRenderer.material == null || lineRenderer.material.name.Contains("Default"))
         {
-#if UNITY_2023_1_OR_NEWER
-            semanticController = FindFirstObjectByType<LLMSemanticController>();
-#else
-            semanticController = FindObjectOfType<LLMSemanticController>();
-#endif
+            Shader unlitShader = Shader.Find("Universal Render Pipeline/Unlit");
+            if (unlitShader == null) unlitShader = Shader.Find("Sprites/Default");
+            if (unlitShader != null) lineRenderer.material = new Material(unlitShader);
         }
 
+        // 自动探测场景中的 TraditionalUIController 引用
         if (traditionalUIController == null)
         {
+            if (TraditionalUIController.Instance != null)
+            {
+                traditionalUIController = TraditionalUIController.Instance;
+            }
+            else
+            {
 #if UNITY_2023_1_OR_NEWER
-            traditionalUIController = FindFirstObjectByType<TraditionalUIController>();
+                traditionalUIController = FindFirstObjectByType<TraditionalUIController>();
 #else
-            traditionalUIController = FindObjectOfType<TraditionalUIController>();
+                traditionalUIController = FindObjectOfType<TraditionalUIController>();
 #endif
+            }
         }
     }
 
     private void Update()
     {
-        // 1. 优先检测 Traditional UI 控制器状态
+        if (traditionalUIController == null && TraditionalUIController.Instance != null)
+        {
+            traditionalUIController = TraditionalUIController.Instance;
+        }
+
         if (traditionalUIController != null &&
             traditionalUIController.isBound &&
             traditionalUIController.currentSource != null &&
@@ -58,28 +68,13 @@ public class BindingVisualizer : MonoBehaviour
                 traditionalUIController.activeAction,
                 traditionalUIController.isLocked
             );
-            return;
         }
-
-        // 2. 其次检测 LLM Semantic 控制器状态
-        if (semanticController != null &&
-            semanticController.isBound &&
-            semanticController.currentSource != null &&
-            semanticController.currentTarget != null)
+        else
         {
-            UpdateVisualLine(
-                semanticController.currentSource.transform.position,
-                semanticController.currentTarget.transform.position,
-                semanticController.activeAction,
-                semanticController.isLocked
-            );
-            return;
-        }
-
-        // 3. 无任何绑定时隐藏连线
-        if (lineRenderer.enabled)
-        {
-            lineRenderer.enabled = false;
+            if (lineRenderer.enabled)
+            {
+                lineRenderer.enabled = false;
+            }
         }
     }
 
@@ -90,11 +85,11 @@ public class BindingVisualizer : MonoBehaviour
             lineRenderer.enabled = true;
         }
 
-        // 实时更新两端坐标
+        // 实时更新两端世界坐标
         lineRenderer.SetPosition(0, startPos);
         lineRenderer.SetPosition(1, endPos);
 
-        // 动态根据操作模式与锁定状态切换材质颜色
+        // 动态根据操作模式与锁定状态切换颜色
         Color targetColor;
         if (isLocked)
         {
@@ -108,7 +103,7 @@ public class BindingVisualizer : MonoBehaviour
         {
             targetColor = scaleColor;
         }
-        else // Move / Translate
+        else
         {
             targetColor = moveColor;
         }

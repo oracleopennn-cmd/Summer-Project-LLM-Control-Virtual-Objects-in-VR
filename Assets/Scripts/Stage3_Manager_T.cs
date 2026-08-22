@@ -2,12 +2,10 @@
 using UnityEngine;
 using TMPro;
 
-public class Stage3_Manager : MonoBehaviour
+public class Stage3_Manager_T : MonoBehaviour
 {
     [Header("Model Group References")]
-    [Tooltip("存放所有 Ghost 全息槽位的父节点")]
     public GameObject ghostContainer;
-    [Tooltip("存放所有实体积木的父节点")]
     public Transform solidBlockContainer;
 
     [Header("Bullet & Break Effect")]
@@ -16,19 +14,16 @@ public class Stage3_Manager : MonoBehaviour
     public float bulletSpeed = 60f;
 
     [Header("UI & Controller")]
-    public MonoBehaviour controller;
+    public TraditionalUIController controller;
     public TextMeshProUGUI directiveText;
     public GameObject uiCanvas;
 
     [Header("Timing Settings")]
-    public float settleDuration = 3.0f; // 确保开局有足够时间落地
+    public float settleDuration = 3.0f;
     public float observeDuration = 2.5f;
-
-    [Tooltip("打散后实体积木缩小的目标比例（玩法设计：强制玩家放大）")]
     public float scatteredBlockScale = 0.1f;
 
     [Header("Trial & Tolerances")]
-    [Tooltip("Stage 3 需要完成几轮组装（可自定义 Trial 数量）")]
     public int totalTrials = 3;
     public float positionTolerance = 0.08f; // 💡 新增：位置误差范围
     public float rotationTolerance = 15.0f; // 💡 新增：旋转误差范围
@@ -44,22 +39,21 @@ public class Stage3_Manager : MonoBehaviour
     private struct InitialPose
     {
         public Vector3 localPos;
-        public Quaternion localRot;
+        public Quaternion localRotation;
         public Vector3 localScale;
     }
     private InitialPose[] initialPoses;
 
     private void OnEnable()
     {
-        // 💡 优先读取全局配置的 Stage 3 轮数
-        totalTrials = ExperimentConfigManager.GlobalStage3Trials;
+        totalTrials = ExperimentConfigManager.GlobalStage3TrialsT;
 
         if (controller == null)
         {
 #if UNITY_2023_1_OR_NEWER
-            controller = Object.FindFirstObjectByType<LLMSemanticController>();
+            controller = Object.FindFirstObjectByType<TraditionalUIController>();
 #else
-            controller = Object.FindObjectOfType<LLMSemanticController>();
+            controller = Object.FindObjectOfType<TraditionalUIController>();
 #endif
         }
 
@@ -96,7 +90,7 @@ public class Stage3_Manager : MonoBehaviour
             initialPoses[i] = new InitialPose
             {
                 localPos = child.localPosition,
-                localRot = child.localRotation,
+                localRotation = child.localRotation,
                 localScale = child.localScale
             };
         }
@@ -110,9 +104,9 @@ public class Stage3_Manager : MonoBehaviour
             return;
         }
 
-        if (controller != null && controller is LLMSemanticController semanticCtrl)
+        if (controller != null)
         {
-            semanticCtrl.ForceResetBinding();
+            controller.ForceResetBinding();
         }
 
         ResetBlocksForNewTrial();
@@ -126,9 +120,7 @@ public class Stage3_Manager : MonoBehaviour
         {
             Transform child = solidBlockContainer.GetChild(i);
             child.localPosition = initialPoses[i].localPos;
-            child.localRotation = initialPoses[i].localRot;
-
-            // ⚠️ 恢复原始大尺寸，准备开启新一轮的下落
+            child.localRotation = initialPoses[i].localRotation;
             child.localScale = initialPoses[i].localScale;
 
             if (child.TryGetComponent<Rigidbody>(out Rigidbody rb))
@@ -170,13 +162,11 @@ public class Stage3_Manager : MonoBehaviour
         FireBulletAndScatterBlocks();
         yield return new WaitForSeconds(2.0f);
 
-        // 💡 打散后将实体积木强制缩小，增加游戏难度
         ScaleDownBlocksAndEnablePhysics();
 
         if (ghostContainer != null)
         {
             ghostContainer.SetActive(true);
-
             MeshRenderer[] mrs = ghostContainer.GetComponentsInChildren<MeshRenderer>(true);
             foreach (var mr in mrs)
             {
@@ -184,7 +174,7 @@ public class Stage3_Manager : MonoBehaviour
             }
         }
 
-        UpdateUI($"Stage 3: Rebuild Trial ({currentTrialIndex + 1}/{totalTrials})\nMatch each shape to its hologram frame using voice commands.");
+        UpdateUI($"Stage 3: Rebuild Trial ({currentTrialIndex + 1}/{totalTrials})\nUse Traditional UI to match each shape to its hologram frame.");
 
         trialStartTime = Time.time;
         isRebuildPhaseActive = true;
@@ -203,6 +193,7 @@ public class Stage3_Manager : MonoBehaviour
         bool allFilled = true;
         foreach (var slot in allSlots)
         {
+            // 如果槽位有自定义容差接口，也可以在这里动态传递
             if (slot != null && !slot.IsFilled)
             {
                 allFilled = false;
@@ -237,7 +228,6 @@ public class Stage3_Manager : MonoBehaviour
     {
         if (ghostContainer == null || solidBlockContainer == null) return;
 
-        // 父节点必须是 1:1 才能正确记录真实坐标
         ghostContainer.transform.localScale = Vector3.one;
 
         Transform ghostParent = ghostContainer.transform;
@@ -248,14 +238,13 @@ public class Stage3_Manager : MonoBehaviour
             Transform ghostChild = ghostParent.GetChild(i);
             Transform solidChild = solidBlockContainer.GetChild(i);
 
-            // 1:1 完全复制开局沉降后的坐标、旋转和大小
             ghostChild.position = solidChild.position;
             ghostChild.rotation = solidChild.rotation;
             ghostChild.localScale = solidChild.localScale;
 
             ghostChild.gameObject.SetActive(true);
 
-            // 💡 如果你的 FlexibleTargetSlot 支持动态应用容差，可以在这里赋值
+            // 💡 如果你的 FlexibleTargetSlot 支持直接接收容差，可以在这里设置
             // if (ghostChild.TryGetComponent<FlexibleTargetSlot>(out var slot)) {
             //     slot.positionTolerance = positionTolerance;
             //     slot.rotationTolerance = rotationTolerance;
@@ -297,12 +286,9 @@ public class Stage3_Manager : MonoBehaviour
 
     private void ScaleDownBlocksAndEnablePhysics()
     {
-        // 💡 玩法机制：仅仅将实体积木统一缩小，迫使玩家使用 Scale 功能复原它们！
         for (int i = 0; i < solidBlockContainer.childCount; i++)
         {
             Transform child = solidBlockContainer.GetChild(i);
-
-            // 将实体积木统一缩小到指定的迷你尺寸 (默认 0.1)
             child.localScale = new Vector3(scatteredBlockScale, scatteredBlockScale, scatteredBlockScale);
 
             if (child.TryGetComponent<Rigidbody>(out Rigidbody rb))
@@ -315,8 +301,6 @@ public class Stage3_Manager : MonoBehaviour
                 rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
         }
-
-        // ⚠️ 绝不调整 ghostContainer 的缩放，保留全息体 1:1 的巨大原始轮廓，提供目标参照物。
     }
 
     private void UpdateUI(string message)
