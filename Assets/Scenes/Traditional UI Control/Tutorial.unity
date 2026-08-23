@@ -1355,7 +1355,7 @@ MonoBehaviour:
   scaleSensitivity: 0.01
   minScale: 0.001
   maxScale: 100
-  translateSensitivity: 3
+  translateSensitivity: 4
   rightRayInteractor: {fileID: 196500272}
   leftRayInteractor: {fileID: 874587734}
   hudUIParent: {fileID: 1729308811}

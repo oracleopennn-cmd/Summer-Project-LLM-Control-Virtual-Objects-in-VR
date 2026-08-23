@@ -3613,7 +3613,7 @@ MonoBehaviour:
   currentSource: {fileID: 0}
   currentTarget: {fileID: 0}
   scaleSensitivity: 0.01
-  minScale: 0.01
+  minScale: 0.001
   maxScale: 100
   translateSensitivity: 3
   currentState: 0
