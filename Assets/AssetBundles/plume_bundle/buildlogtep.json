@@ -1,0 +1,11 @@
+{
+"Date": "8/24/2026 11:01:17 PM",
+"UnityVersion": "6000.3.20f1",
+"com.unity.scriptablebuildpipeline": "2.6.1",
+"traceEvents": [
+{"name": "AssetDatabase.SaveAssets", "ph": "X", "dur": 830.4, "tid": 1, "ts": 121, "pid": 1}
+,{"name": "SwitchToBuildPlatform", "ph": "X", "dur": 16.9999999999959, "tid": 1, "ts": 188098, "pid": 1}
+,{"name": "RebuildSpriteAtlasCache", "ph": "X", "dur": 1.49999999999295, "tid": 1, "ts": 188139, "pid": 1}
+,{"name": "BuildPlayerScripts", "ph": "X", "dur": 1170.09999999999, "tid": 1, "ts": 188153, "pid": 1}
+]
+}
