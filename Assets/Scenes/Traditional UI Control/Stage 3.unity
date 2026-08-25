@@ -317,25 +317,25 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverEntered
-        m_Mode: 0
+      - m_Target: {fileID: 501118080}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverExited
-        m_Mode: 0
+      - m_Target: {fileID: 501118080}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7860,6 +7860,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 144552, guid: 10fff1e65cc8bce4fa883b6379a4c782, type: 3}
       insertIndex: -1
       addedObject: {fileID: 191871070}
+    - targetCorrespondingSourceObject: {fileID: 144552, guid: 10fff1e65cc8bce4fa883b6379a4c782, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 501118080}
   m_SourcePrefab: {fileID: 100100000, guid: 10fff1e65cc8bce4fa883b6379a4c782, type: 3}
 --- !u!64 &501118074 stripped
 MeshCollider:
@@ -7891,6 +7894,24 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 3326682, guid: 10fff1e65cc8bce4fa883b6379a4c782, type: 3}
   m_PrefabInstance: {fileID: 501118073}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &501118080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191871063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &510788555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8106,6 +8127,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 191730, guid: cec7e74c6924ec34c977bf9ecee1f1b5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 813470642}
+    - targetCorrespondingSourceObject: {fileID: 191730, guid: cec7e74c6924ec34c977bf9ecee1f1b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 813470643}
   m_SourcePrefab: {fileID: 100100000, guid: cec7e74c6924ec34c977bf9ecee1f1b5, type: 3}
 --- !u!23 &556786093 stripped
 MeshRenderer:
@@ -9115,25 +9139,25 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverEntered
-        m_Mode: 0
+      - m_Target: {fileID: 813470643}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverExited
-        m_Mode: 0
+      - m_Target: {fileID: 813470643}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9191,6 +9215,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlockIdentity
   shapeType: 0
   isMatched: 0
+--- !u!114 &813470643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813470635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &842599777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7851545697418536637, guid: 53c17f6cbc0d1fd49921ec54121637aa, type: 3}
@@ -10934,6 +10976,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 120842, guid: bc861aedb8b360c4bbc5a549f55d120b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1204737745}
+    - targetCorrespondingSourceObject: {fileID: 120842, guid: bc861aedb8b360c4bbc5a549f55d120b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1659123294}
   m_SourcePrefab: {fileID: 100100000, guid: bc861aedb8b360c4bbc5a549f55d120b, type: 3}
 --- !u!4 &1204737738 stripped
 Transform:
@@ -10981,25 +11026,25 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverEntered
-        m_Mode: 0
+      - m_Target: {fileID: 1659123294}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverExited
-        m_Mode: 0
+      - m_Target: {fileID: 1659123294}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -24562,6 +24607,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 191730, guid: cec7e74c6924ec34c977bf9ecee1f1b5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1612636535}
+    - targetCorrespondingSourceObject: {fileID: 191730, guid: cec7e74c6924ec34c977bf9ecee1f1b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612636539}
   m_SourcePrefab: {fileID: 100100000, guid: cec7e74c6924ec34c977bf9ecee1f1b5, type: 3}
 --- !u!4 &1612636533 stripped
 Transform:
@@ -24623,25 +24671,25 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverEntered
-        m_Mode: 0
+      - m_Target: {fileID: 1612636539}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VRNameTagManager, Assembly-CSharp
-        m_MethodName: OnHoverExited
-        m_Mode: 0
+      - m_Target: {fileID: 1612636539}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -24726,6 +24774,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &1612636539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612636534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1626141580
 GameObject:
   m_ObjectHideFlags: 0
@@ -24893,6 +24959,24 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 3379854, guid: bc861aedb8b360c4bbc5a549f55d120b, type: 3}
   m_PrefabInstance: {fileID: 1204737737}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1659123294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204737739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &1705579997
 PrefabInstance:
   m_ObjectHideFlags: 0

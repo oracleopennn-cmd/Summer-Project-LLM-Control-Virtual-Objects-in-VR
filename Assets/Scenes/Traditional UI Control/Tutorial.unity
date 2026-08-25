@@ -3373,7 +3373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
   currentStep: 0
   tutorialText: {fileID: 1519612355}
-  completionUI: {fileID: 0}
+  completionUI: {fileID: 1759973828}
 --- !u!114 &1279166565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8875,7 +8875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1759973829
 MonoBehaviour:
   m_ObjectHideFlags: 0
